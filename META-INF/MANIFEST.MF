@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Impulse
 Bundle-SymbolicName: impulse; singleton:=true
 Bundle-Version: 0.1.0.qualifier
-Bundle-Activator: org.eclipse.imp.runtime.RuntimePlugin
+Bundle-Activator: io.usethesource.impulse.runtime.RuntimePlugin
 Bundle-ActivationPolicy: lazy
 Eclipse-LazyStart: true
 Bundle-Vendor: jurgen.vinju@cwi.nl
@@ -25,24 +25,24 @@ Require-Bundle: com.ibm.icu,
  org.eclipse.ui.navigator,
  org.eclipse.ui.views,
  org.eclipse.ui.workbench.texteditor
-Export-Package: org.eclipse.imp.actions,
- org.eclipse.imp.builder,
- org.eclipse.imp.compare,
- org.eclipse.imp.core,
- org.eclipse.imp.editor,
- org.eclipse.imp.editor.hover,
- org.eclipse.imp.editor.quickfix,
- org.eclipse.imp.indexing,
- org.eclipse.imp.language,
- org.eclipse.imp.model,
- org.eclipse.imp.parser,
- org.eclipse.imp.preferences,
- org.eclipse.imp.preferences.fields,
- org.eclipse.imp.preferences.fields.details,
- org.eclipse.imp.refactoring,
- org.eclipse.imp.runtime,
- org.eclipse.imp.services,
- org.eclipse.imp.services.base,
- org.eclipse.imp.ui,
- org.eclipse.imp.utils
+Export-Package: io.usethesource.impulse.actions,
+ io.usethesource.impulse.builder,
+ io.usethesource.impulse.compare,
+ io.usethesource.impulse.core,
+ io.usethesource.impulse.editor,
+ io.usethesource.impulse.editor.hover,
+ io.usethesource.impulse.editor.quickfix,
+ io.usethesource.impulse.indexing,
+ io.usethesource.impulse.language,
+ io.usethesource.impulse.model,
+ io.usethesource.impulse.parser,
+ io.usethesource.impulse.preferences,
+ io.usethesource.impulse.preferences.fields,
+ io.usethesource.impulse.preferences.fields.details,
+ io.usethesource.impulse.refactoring,
+ io.usethesource.impulse.runtime,
+ io.usethesource.impulse.services,
+ io.usethesource.impulse.services.base,
+ io.usethesource.impulse.ui,
+ io.usethesource.impulse.utils
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

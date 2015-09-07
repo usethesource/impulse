@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.imp.metatooling">
+<schema targetNamespace="io.usethesource.impulse.metatooling">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.imp.metatooling" id="Outliner" name="IMP IDE Outliner"/>
+         <meta.schema plugin="io.usethesource.impulse.metatooling" id="Outliner" name="IMP IDE Outliner"/>
       </appInfo>
       <documentation>
          The org.eclips.imp.editor.outliner extension point allows providers to provide outline view contents. The provider specifies what languages it can provide an outline for. The provider has to implement the IOutliner interface. It will be presented with an IModel, and from this update the Outline view to show the appropriate outline.
@@ -52,7 +52,7 @@
                   The fully-qualified name for the class that implements IOutliner.
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="org.eclipse.imp.services.IOutliner"/>
+                  <meta.attribute kind="java" basedOn="io.usethesource.impulse.services.IOutliner"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -82,12 +82,12 @@ Examples: &quot;C&quot;, &quot;php&quot;, &quot;Java&quot;, &quot;Lisp&quot;, et
       </appInfo>
       <documentation>
          &lt;extension
-         point=&quot;org.eclipse.imp.outliner&quot;&gt;
+         point=&quot;io.usethesource.impulse.outliner&quot;&gt;
       &lt;outliner
-            class=&quot;org.eclipse.imp.DefaultOutliner&quot;
+            class=&quot;io.usethesource.impulse.DefaultOutliner&quot;
             language=&quot;*&quot;
             name=&quot;Default Outliner&quot;
-            id=&quot;org.eclipse.imp.outliner.default&quot;/&gt;
+            id=&quot;io.usethesource.impulse.outliner.default&quot;/&gt;
    &lt;/extension&gt;
       </documentation>
    </annotation>
@@ -106,7 +106,7 @@ Examples: &quot;C&quot;, &quot;php&quot;, &quot;Java&quot;, &quot;Lisp&quot;, et
          <meta.section type="implementation"/>
       </appInfo>
       <documentation>
-         See org.eclipse.imp.DefaultOutliner.
+         See io.usethesource.impulse.DefaultOutliner.
       </documentation>
    </annotation>
 

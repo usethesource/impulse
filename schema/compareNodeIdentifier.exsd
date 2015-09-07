@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.imp.runtime" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="io.usethesource.impulse.runtime" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.imp.runtime" id="compareNodeIdentifier" name="Compare Node Identifier"/>
+         <meta.schema plugin="io.usethesource.impulse.runtime" id="compareNodeIdentifier" name="Compare Node Identifier"/>
       </appInfo>
       <documentation>
          Extensions of this extension point furnish an implementation of the IMP ICompareNodeIdentifier service, which is used by the &quot;structured differencing&quot; mechanism used in compare viewers.
@@ -62,7 +62,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.imp.services.ICompareNodeIdentifier"/>
+                  <meta.attribute kind="java" basedOn=":io.usethesource.impulse.services.ICompareNodeIdentifier"/>
                </appInfo>
             </annotation>
          </attribute>

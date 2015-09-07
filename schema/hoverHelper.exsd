@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.imp.metatooling" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="io.usethesource.impulse.metatooling" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.eclipse.imp.metatooling" id="HoverHelper" name="IMP IDE Hover Helper"/>
+         <meta.schema plugin="io.usethesource.impulse.metatooling" id="HoverHelper" name="IMP IDE Hover Helper"/>
       </appinfo>
       <documentation>
          The org.eclips.imp.editor.hoverHelper extension point allows providers to provide hover help. The provider specifies what languages it can provide hover help for. The provider has to implement the IHoverHelper interface. It will be presented with an IModel and a location, and from this combination
@@ -53,7 +53,7 @@ returns the appropriate context-sensitive hover help.
                   The fully-qualified name of the class that will be generated to serve as the implementation of this extension.  This class will be assigned the given name and located in the given package in the currently selected project.  (The package will be created if it does not already exist.)
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn="org.eclipse.imp.services.IHoverHelper"/>
+                  <meta.attribute kind="java" basedOn="io.usethesource.impulse.services.IHoverHelper"/>
                </appinfo>
             </annotation>
          </attribute>
@@ -82,12 +82,12 @@ returns the appropriate context-sensitive hover help.
       </appinfo>
       <documentation>
          &lt;extension
-         point=&quot;org.eclipse.imp.hoverHelper&quot;&gt;
+         point=&quot;io.usethesource.impulse.hoverHelper&quot;&gt;
       &lt;hoverhelper
-            class=&quot;org.eclipse.imp.DefaultHoverHelper&quot;
+            class=&quot;io.usethesource.impulse.DefaultHoverHelper&quot;
             language=&quot;*&quot;
             name=&quot;Default Hover Helper&quot;
-            id=&quot;org.eclipse.imp.hoverhelper.default&quot;/&gt;
+            id=&quot;io.usethesource.impulse.hoverhelper.default&quot;/&gt;
    &lt;/extension&gt;
       </documentation>
    </annotation>
@@ -106,7 +106,7 @@ returns the appropriate context-sensitive hover help.
          <meta.section type="implementation"/>
       </appinfo>
       <documentation>
-         See org.eclipse.imp.DefaultHoverHelper.
+         See io.usethesource.impulse.DefaultHoverHelper.
       </documentation>
    </annotation>
 

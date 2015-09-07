@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.imp.runtime">
+<schema targetNamespace="io.usethesource.impulse.runtime">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.imp.runtime" id="modelTreeBuilder" name="Model Tree Builder"/>
+         <meta.schema plugin="io.usethesource.impulse.runtime" id="modelTreeBuilder" name="Model Tree Builder"/>
       </appInfo>
       <documentation>
          Implementors of this extension point build a language-specific tree consisting of ModelTreeNodes that typically describes a portion of the structure of a given compilation unit, e.g., the portion that should presented in a structural outline view.
@@ -57,7 +57,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="org.eclipse.imp.services.base.TreeModelBuilderBase"/>
+                  <meta.attribute kind="java" basedOn="io.usethesource.impulse.services.base.TreeModelBuilderBase"/>
                </appInfo>
             </annotation>
          </attribute>

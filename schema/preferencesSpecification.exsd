@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.imp.runtime">
+<schema targetNamespace="io.usethesource.impulse.runtime">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.imp.runtime" id="preferencesSpecification" name="Preferences Specification"/>
+         <meta.schema plugin="io.usethesource.impulse.runtime" id="preferencesSpecification" name="Preferences Specification"/>
       </appInfo>
       <documentation>
          An extension point for adding specifications for preferences for IMP-based IDEs.  Preferences specifications are written in the prefspecs language.
@@ -55,10 +55,10 @@
          <attribute name="template" type="string" use="required">
             <annotation>
                <documentation>
-                  The fully-qualified name of the template file from which the skeleton preferences specification will be generated.  Predefined templates are provided org.eclipse.imp.preferences/templates.
+                  The fully-qualified name of the template file from which the skeleton preferences specification will be generated.  Predefined templates are provided io.usethesource.impulse.preferences/templates.
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="org.eclipse.imp.wizards.ExtensionPointWizardPage$FileBrowse"/>
+                  <meta.attribute kind="java" basedOn="io.usethesource.impulse.wizards.ExtensionPointWizardPage$FileBrowse"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -76,7 +76,7 @@
 
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="org.eclipse.imp.wizards.ExtensionPointWizardPage$PackageBrowse"/>
+                  <meta.attribute kind="java" basedOn="io.usethesource.impulse.wizards.ExtensionPointWizardPage$PackageBrowse"/>
                </appInfo>
             </annotation>
          </attribute>

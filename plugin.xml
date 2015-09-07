@@ -41,8 +41,8 @@
             name="IMP Editor"
             icon="icons/IMP-editor.gif"
             extensions="txt"
-            contributorClass="org.eclipse.imp.editor.TextEditorActionContributor"
-            class="org.eclipse.imp.editor.UniversalEditor"
+            contributorClass="io.usethesource.impulse.editor.TextEditorActionContributor"
+            class="io.usethesource.impulse.editor.UniversalEditor"
             id="org.eclipse.imp.runtime.impEditor">
       </editor>
    </extension>
@@ -91,16 +91,16 @@
          point="org.eclipse.ui.editors.markerAnnotationSpecification">
       <specification
             annotationType="org.eclipse.imp.editor.parseAnnotation"
-            annotationImageProvider="org.eclipse.imp.editor.internal.AnnotationImageProvider"/>
+            annotationImageProvider="io.usethesource.impulse.editor.internal.AnnotationImageProvider"/>
       <specification
             annotationType="org.eclipse.imp.editor.parseAnnotation.error"
-            annotationImageProvider="org.eclipse.imp.editor.internal.AnnotationImageProvider"/>
+            annotationImageProvider="io.usethesource.impulse.editor.internal.AnnotationImageProvider"/>
       <specification
             annotationType="org.eclipse.imp.editor.parseAnnotation.warning"
-            annotationImageProvider="org.eclipse.imp.editor.internal.AnnotationImageProvider"/>
+            annotationImageProvider="io.usethesource.impulse.editor.internal.AnnotationImageProvider"/>
       <specification
             annotationType="org.eclipse.imp.editor.parseAnnotation.info"
-            annotationImageProvider="org.eclipse.imp.editor.internal.AnnotationImageProvider"/>
+            annotationImageProvider="io.usethesource.impulse.editor.internal.AnnotationImageProvider"/>
    </extension>
    <extension
          point="org.eclipse.ui.editors.markerAnnotationSpecification">
@@ -315,7 +315,7 @@
             label="IMP Analysis Actions"
             visible="true">
          <action
-               class="org.eclipse.imp.editor.MarkOccurrencesAction"
+               class="io.usethesource.impulse.editor.MarkOccurrencesAction"
                icon="icons/mark_occurrences.gif"
                id="org.eclipse.imp.runtime.actions.markOccurrencesAction"
                label="&amp;Toggle Mark Occurrences"
@@ -594,14 +594,14 @@
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
-            class="org.eclipse.imp.preferences.PreferenceInitializer">
+            class="io.usethesource.impulse.preferences.PreferenceInitializer">
       </initializer>
    </extension>
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
             name="IMP"
-            class="org.eclipse.imp.preferences.PreferencePage"
+            class="io.usethesource.impulse.preferences.PreferencePage"
             id="org.eclipse.imp.runtime.preferencePage">
       </page>
    </extension>
@@ -612,7 +612,7 @@
             id="org.eclipse.imp.runtime.QuickFixRulerMenuAction">
          <action
                label="QuickFix"
-               class="org.eclipse.imp.actions.SelectRulerAction"
+               class="io.usethesource.impulse.actions.SelectRulerAction"
                menubarPath="additions"
                definitionId="org.eclipse.jdt.ui.edit.text.java.correction.assist.proposals"
                id="org.eclipse.imp.editor.internal.SelectRulerMenuAction">

@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.imp.runtime" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="io.usethesource.impulse.runtime" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.imp.runtime" id="languageDescription" name="IMP Programming Language Description"/>
+         <meta.schema plugin="io.usethesource.impulse.runtime" id="languageDescription" name="IMP Programming Language Description"/>
       </appInfo>
       <documentation>
-         The org.eclipse.imp.runtime.languageDescription extension points allows contributors to describe a programming language by providing attributes such as a name for the language, synonyms, a description, and a URL with more information on the programming language.
+         The io.usethesource.impulse.runtime.languageDescription extension points allows contributors to describe a programming language by providing attributes such as a name for the language, synonyms, a description, and a URL with more information on the programming language.
       </documentation>
    </annotation>
 
@@ -135,7 +135,7 @@ The class must extend the LanguageValidator class. The validate method will be c
 &lt;p&gt;
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="org.eclipse.imp.language.LanguageValidator"/>
+                  <meta.attribute kind="java" basedOn="io.usethesource.impulse.language.LanguageValidator"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -152,7 +152,7 @@ The class must extend the LanguageValidator class. The validate method will be c
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.imp.language.ILanguageRegistrar"/>
+                  <meta.attribute kind="java" basedOn=":io.usethesource.impulse.language.ILanguageRegistrar"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -195,7 +195,7 @@ check for a given unique signature.
          <meta.section type="implementation"/>
       </appInfo>
       <documentation>
-         org.eclipse.imp.code.LanguageValidator
+         io.usethesource.impulse.code.LanguageValidator
       </documentation>
    </annotation>
 

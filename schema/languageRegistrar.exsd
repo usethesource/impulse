@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.imp.runtime" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="io.usethesource.impulse.runtime" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.imp.runtime" id="starter" name="IMP starter"/>
+         <meta.schema plugin="io.usethesource.impulse.runtime" id="starter" name="IMP starter"/>
       </appInfo>
       <documentation>
          [Enter description of this extension point.]
@@ -62,7 +62,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.imp.language.ILanguageRegistrar"/>
+                  <meta.attribute kind="java" basedOn=":io.usethesource.impulse.language.ILanguageRegistrar"/>
                </appInfo>
             </annotation>
          </attribute>

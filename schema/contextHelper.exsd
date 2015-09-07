@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.imp.runtime">
+<schema targetNamespace="io.usethesource.impulse.runtime">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.imp.runtime" id="contextHelper" name="Context Helper"/>
+         <meta.schema plugin="io.usethesource.impulse.runtime" id="contextHelper" name="Context Helper"/>
       </appInfo>
       <documentation>
          [Enter description of this extension point.]
@@ -56,7 +56,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.imp.services.IHelpService"/>
+                  <meta.attribute kind="java" basedOn=":io.usethesource.impulse.services.IHelpService"/>
                </appInfo>
             </annotation>
          </attribute>
