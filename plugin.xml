@@ -3,17 +3,17 @@
 <plugin>
    <extension-point id="annotationHover" name="Annotation Hover" schema="schema/annotationHover.exsd"/>
    <extension-point id="autoEditStrategy" name="Auto-Edit Strategy" schema="schema/autoEditStrategy.exsd"/>
-   <extension-point id="contentProposer" name="IMP Content Proposer" schema="schema/contentProposer.exsd"/>
+   <extension-point id="contentProposer" name="Impulse Content Proposer" schema="schema/contentProposer.exsd"/>
    <extension-point id="contextHelper" name="Context Helper" schema="schema/contextHelper.exsd"/>
    <extension-point id="documentationProvider" name="Documentation Provider" schema="schema/documentationProvider.exsd"/>
    <extension-point id="editorActionContributions" name="Editor Action Contributions" schema="schema/editorActionContributions.exsd"/>
-   <extension-point id="editorService" name="IMP Editor Service" schema="schema/editorService.exsd"/>
+   <extension-point id="editorService" name="Impulse Editor Service" schema="schema/editorService.exsd"/>
    <extension-point id="entityImageDecorator" name="Entity Image Decorator" schema="schema/entityImageDecorator.exsd"/>
    <extension-point id="entityNameLocator" name="Entity Name Locator" schema="schema/entityNameLocator.exsd"/>
-   <extension-point id="foldingUpdater" name="IMP Source Folding Updater" schema="schema/foldingUpdater.exsd"/>
-   <extension-point id="formatter" name="IMP Source Code Formatter" schema="schema/formatter.exsd"/>
-   <extension-point id="hoverHelper" name="IMP Hover Helper" schema="schema/hoverHelper.exsd"/>
-   <extension-point id="hyperLink" name="IMP Hyperlink Detector" schema="schema/hyperLink.exsd"/>
+   <extension-point id="foldingUpdater" name="Impulse Source Folding Updater" schema="schema/foldingUpdater.exsd"/>
+   <extension-point id="formatter" name="Impulse Source Code Formatter" schema="schema/formatter.exsd"/>
+   <extension-point id="hoverHelper" name="Impulse Hover Helper" schema="schema/hoverHelper.exsd"/>
+   <extension-point id="hyperLink" name="Impulse Hyperlink Detector" schema="schema/hyperLink.exsd"/>
    <extension-point id="imageDecorator" name="Image Decorator" schema="schema/imageDecorator.exsd"/>
    <extension-point id="indexContributor" name="Shared index of language-specific items, such as types" schema="schema/indexContributor.exsd"/>
    <extension-point id="labelProvider" name="Label Provider" schema="schema/labelProvider.exsd"/>
@@ -23,12 +23,12 @@
    <extension-point id="modelTreeBuilder" name="Model Tree Builder" schema="schema/modelTreeBuilder.exsd"/>
    <extension-point id="navigationTargetFinder" name="Navigation target finder" schema="schema/navigationTargetFinder.exsd"/>
    <extension-point id="outlineContentProvider" name="Outline Content Provider" schema="schema/outlineContentProvider.exsd"/>
-   <extension-point id="outliner" name="IMP Outliner" schema="schema/outliner.exsd"/>
+   <extension-point id="outliner" name="Impulse Outliner" schema="schema/outliner.exsd"/>
    <extension-point id="parser" name="Language-specific parser" schema="schema/parser.exsd"/>
    <extension-point id="refactoringContributions" name="Refactoring Contributions" schema="schema/refactoringContributions.exsd"/>
-   <extension-point id="referenceResolvers" name="IMP Reference Resolver" schema="schema/referenceResolvers.exsd"/>
+   <extension-point id="referenceResolvers" name="Impulse Reference Resolver" schema="schema/referenceResolvers.exsd"/>
    <extension-point id="toggleBreakpointHandler" name="Toggle Breakpoint Handler" schema="schema/toggleBreakpointHandler.exsd"/>
-   <extension-point id="tokenColorer" name="IMP Token Colorer" schema="schema/tokenColorer.exsd"/>
+   <extension-point id="tokenColorer" name="Impulse Token Colorer" schema="schema/tokenColorer.exsd"/>
    <extension-point id="viewerFilter" name="Program Entity Viewer Filter" schema="schema/viewerFilter.exsd"/>
    <extension-point id="compareNodeIdentifier" name="Compare Node Identifier" schema="schema/compareNodeIdentifier.exsd"/>
    <extension-point id="editorInputResolver" name="editorInputResolver" schema="schema/editorInputResolver.exsd"/>
@@ -38,7 +38,7 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            name="IMP Editor"
+            name="Impulse Editor"
             icon="icons/IMP-editor.gif"
             extensions="txt"
             contributorClass="io.usethesource.impulse.editor.TextEditorActionContributor"
@@ -48,7 +48,7 @@
    </extension>
    <extension
          id="io.usethesource.impulse.startup"
-         name="IMP Runtime Startup"
+         name="Impulse Runtime Startup"
          point="org.eclipse.ui.startup">
    </extension>
    <extension
@@ -129,24 +129,11 @@
             verticalRulerPreferenceKey="occurrenceVerticalRulerPreference"
             verticalRulerPreferenceValue="true"/>
    </extension>
-   <!--
-   <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            class="io.usethesource.impulse.preferences.PreferencePage"
-            id="io.usethesource.impulse.runtime.preferencePage"
-            name="IMP"/>
-   </extension>
-   <extension
-         point="org.eclipse.core.runtime.preferences">
-      <initializer class="io.usethesource.impulse.preferences.PreferenceInitializer"/>
-   </extension>
-   -->
    <extension
          point="org.eclipse.ui.contexts">
          <context
-            name="IMP Source Editor"
-            description="Scope for all IMP source editors"
+            name="Impulse Source Editor"
+            description="Scope for all Impulse source editors"
             parentId="org.eclipse.ui.textEditorScope"
             id="io.usethesource.impulse.runtime.sourceEditorScope">
          </context>
@@ -302,7 +289,7 @@
          point="org.eclipse.ui.actionSets">
       <actionSet
             id="io.usethesource.impulse.runtime.refactoringActions"
-            label="IMP Refactoring Actions"
+            label="Impulse Refactoring Actions"
             visible="true">
          <menu
                id="io.usethesource.impulse.refactoring"
@@ -312,7 +299,7 @@
       </actionSet>
       <actionSet
             id="io.usethesource.impulse.runtime.analysisActions"
-            label="IMP Analysis Actions"
+            label="Impulse Analysis Actions"
             visible="true">
          <action
                class="io.usethesource.impulse.editor.MarkOccurrencesAction"
@@ -325,8 +312,8 @@
                tooltip="Toggles marking occurrences of the given entity"/>
       </actionSet>
       <actionSet
-            label="IMP Open Actions"
-            description="Action set containing open actions for IMP"
+            label="Impulse Open Actions"
+            description="Action set containing open actions for Impulse"
             visible="false"
             id="io.usethesource.impulse.runtime.openActionSet">
 <!--
@@ -356,8 +343,8 @@
          </action>
       </actionSet>
 	  <actionSet
-	           label="IMP Coding"
-	           description="Action set containing coding related IMP actions"
+	           label="Impulse Coding"
+	           description="Action set containing coding related Impulse actions"
 	           visible="false"
 	           id="io.usethesource.impulse.runtime.codingActionSet">
 <!-- =========================================================================== -->
@@ -600,7 +587,7 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            name="IMP"
+            name="Impulse"
             class="io.usethesource.impulse.preferences.PreferencePage"
             id="io.usethesource.impulse.runtime.preferencePage">
       </page>
