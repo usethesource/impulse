@@ -43,7 +43,7 @@
             extensions="txt"
             contributorClass="io.usethesource.impulse.editor.TextEditorActionContributor"
             class="io.usethesource.impulse.editor.UniversalEditor"
-            id="io.usethesource.impulse.runtime.impEditor">
+            id="impulse.impEditor">
       </editor>
    </extension>
    <extension

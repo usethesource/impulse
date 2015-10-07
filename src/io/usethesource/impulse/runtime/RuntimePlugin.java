@@ -61,7 +61,7 @@ public class RuntimePlugin extends PluginBase implements IStartup {
 
     private static final String CONSOLE_NAME= "IMP Runtime";
 
-    public static final String IMP_RUNTIME= "io.usethesource.impulse.runtime"; // must match plugin ID in MANIFEST.MF
+    public static final String IMP_RUNTIME= "impulse"; // must match plugin ID in MANIFEST.MF
 
     /**
      * The (unqualified) ID of the language descriptor extension point.
