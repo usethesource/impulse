@@ -24,7 +24,8 @@ Require-Bundle: com.ibm.icu,
  org.eclipse.ui.ide,
  org.eclipse.ui.navigator,
  org.eclipse.ui.views,
- org.eclipse.ui.workbench.texteditor
+ org.eclipse.ui.workbench.texteditor,
+ org.eclipse.ui.workbench
 Export-Package: io.usethesource.impulse.actions,
  io.usethesource.impulse.builder,
  io.usethesource.impulse.compare,

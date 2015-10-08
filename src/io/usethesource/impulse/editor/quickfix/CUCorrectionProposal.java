@@ -135,17 +135,6 @@ public class CUCorrectionProposal extends ChangeCorrectionProposal {
 			throws CoreException {
 	}
 
-	// protected LinkedProposalModel getLinkedProposalModel() {
-	// if (fLinkedProposalModel == null) {
-	// fLinkedProposalModel= new LinkedProposalModel();
-	// }
-	// return fLinkedProposalModel;
-	// }
-	//
-	// public void setLinkedProposalModel(LinkedProposalModel model) {
-	// fLinkedProposalModel= model;
-	// }
-
 	public Object getAdditionalProposalInfo(IProgressMonitor monitor) {
 
 		final StringBuffer buf = new StringBuffer();
@@ -451,7 +440,7 @@ public class CUCorrectionProposal extends ChangeCorrectionProposal {
 				return lineDelimiter;
 		}
 		// workspace preference
-		scopeContext= new IScopeContext[] { new InstanceScope() };
+		scopeContext= new IScopeContext[] { InstanceScope.INSTANCE };
 		String platformDefault= System.getProperty("line.separator", "\n"); //$NON-NLS-1$ //$NON-NLS-2$
 		return Platform.getPreferencesService().getString(Platform.PI_RUNTIME, Platform.PREF_LINE_SEPARATOR, platformDefault, scopeContext);
 	}
