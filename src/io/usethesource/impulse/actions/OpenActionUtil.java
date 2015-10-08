@@ -56,9 +56,7 @@ public class OpenActionUtil {
         List<ISourceEntity> refs= new ArrayList<ISourceEntity>(nResults);
 
         for(int i= 0; i < nResults; i++) {
-//          if (codeResolveResults[i] instanceof ISourceReference) {
-                refs.add(codeResolveResults[i]);
-//          }
+        	refs.add(codeResolveResults[i]);
         }
         return refs;
     }
@@ -69,12 +67,13 @@ public class OpenActionUtil {
     public static ISourceEntity selectSourceEntity(ISourceEntity[] entities, Shell shell, String title, String message,
             Language lang) {
         int nResults= entities.length;
-        if (nResults == 0)
+        if (nResults == 0) {
             return null;
-        if (nResults == 1)
+        }
+        if (nResults == 1) {
             return entities[0];
+        }
         ILabelProvider labelProvider= ServiceFactory.getInstance().getLabelProvider(lang);
-//      int flags= JavaElementLabelProvider.SHOW_DEFAULT | JavaElementLabelProvider.SHOW_QUALIFIED | JavaElementLabelProvider.SHOW_ROOT;
         ElementListSelectionDialog dialog= new ElementListSelectionDialog(shell, labelProvider);
         dialog.setTitle(title);
         dialog.setMessage(message);

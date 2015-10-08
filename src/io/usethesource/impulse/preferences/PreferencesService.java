@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
@@ -62,9 +63,9 @@ public class PreferencesService implements IPreferencesService {
 	// Scopes at the four standard preference levels
 	// All are unique but the project scope
 	private ProjectScope projectScope = null;
-	private ConfigurationScope configurationScope = new ConfigurationScope();
-	private InstanceScope instanceScope = new InstanceScope();
-	private DefaultScope defaultScope = new DefaultScope();	
+	private IScopeContext configurationScope = ConfigurationScope.INSTANCE;
+	private IScopeContext instanceScope = InstanceScope.INSTANCE;
+	private IScopeContext defaultScope = DefaultScope.INSTANCE;	
 	
 	/*
 	 * Constructors
@@ -142,7 +143,7 @@ public class PreferencesService implements IPreferencesService {
 		project = getProjectFromName(projectName);
 		if (project != null ) {
 			ProjectScope oldProjectScope = projectScope;
-				projectScope = new ProjectScope(project);
+			projectScope = new ProjectScope(project);
 			toggleProject(oldProjectScope, projectScope, projectName);
 		}
 		
@@ -1566,7 +1567,7 @@ public class PreferencesService implements IPreferencesService {
 				}
 			};
 			
-			Platform.run(job);
+			SafeRunner.run(job);
 		}
 	}
 }

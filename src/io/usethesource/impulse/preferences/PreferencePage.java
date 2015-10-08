@@ -14,8 +14,6 @@ package io.usethesource.impulse.preferences;
 
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
-import org.eclipse.jface.preference.FontFieldEditor;
-import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
@@ -25,14 +23,10 @@ public class PreferencePage extends FieldEditorPreferencePage implements IWorkbe
     public PreferencePage() {
         super(GRID);
         setPreferenceStore(RuntimePlugin.getInstance().getPreferenceStore());
-        setDescription("Preferences for the IMP framework");
+        setDescription("Preferences for the Impulse framework");
     }
 
     public void createFieldEditors() {
-        final BooleanFieldEditor spacesForTabsField= new BooleanFieldEditor(PreferenceConstants.P_SPACES_FOR_TABS, "Use spaces instead of tabs",
-                getFieldEditorParent());
-        addField(spacesForTabsField);
-
         final BooleanFieldEditor emitMessagesField= new BooleanFieldEditor(PreferenceConstants.P_EMIT_MESSAGES, "E&mit diagnostic messages from IMP UI",
                 getFieldEditorParent());
         addField(emitMessagesField);
@@ -44,15 +38,6 @@ public class PreferencePage extends FieldEditorPreferencePage implements IWorkbe
         final BooleanFieldEditor emitBuilderDiagnosticsField= new BooleanFieldEditor(PreferenceConstants.P_EMIT_BUILDER_DIAGNOSTICS, "Emit diagnostic messages while building",
                 getFieldEditorParent());
         addField(emitBuilderDiagnosticsField);
-
-        final IntegerFieldEditor tabWidthField= new IntegerFieldEditor(PreferenceConstants.P_TAB_WIDTH, "&Tab width:", getFieldEditorParent());
-        tabWidthField.setValidRange(1, 16);
-        tabWidthField.setTextLimit(2);
-        tabWidthField.setEmptyStringAllowed(false);
-        addField(tabWidthField);
-
-        final FontFieldEditor fontField= new FontFieldEditor(PreferenceConstants.P_SOURCE_FONT, "Source font:", getFieldEditorParent());
-        addField(fontField);
 
         // Don't need a preference store listener here; the UniversalEditor already listens
         // to the preference store, and takes the necessary actions. Moreover, some preference
