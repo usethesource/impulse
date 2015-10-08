@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2007 IBM Corporation.
+* Copyright (c) 2007 IBM Corporation, 2015 CWI
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -7,13 +7,12 @@
 *
 * Contributors:
 *    Robert Fuhrer (rfuhrer@watson.ibm.com) - initial API and implementation
+*    Jurgen Vinju (Jurgen.Vinju@cwi.nl) - maintenance
 *******************************************************************************/
 
 package io.usethesource.impulse.editor;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -47,23 +46,17 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.commands.ActionHandler;
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.preference.PreferenceConverter;
-import org.eclipse.jface.resource.FontRegistry;
-import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextSelection;
-import org.eclipse.jface.text.ITextViewerExtension;
 import org.eclipse.jface.text.ITextViewerExtension5;
 import org.eclipse.jface.text.ITypedRegion;
 import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.TextPresentation;
-import org.eclipse.jface.text.TextUtilities;
 import org.eclipse.jface.text.formatter.ContentFormatter;
 import org.eclipse.jface.text.presentation.IPresentationDamager;
 import org.eclipse.jface.text.presentation.IPresentationRepairer;
@@ -78,15 +71,8 @@ import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
 import org.eclipse.jface.text.source.projection.ProjectionSupport;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.jface.util.IPropertyChangeListener;
-import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.custom.VerifyKeyListener;
-import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
@@ -94,18 +80,13 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPropertyListener;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.SubActionBars;
 import org.eclipse.ui.actions.ActionContext;
 import org.eclipse.ui.editors.text.TextEditor;
-import org.eclipse.ui.handlers.IHandlerActivation;
 import org.eclipse.ui.handlers.IHandlerService;
-import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.eclipse.ui.texteditor.AbstractTextEditor;
 import org.eclipse.ui.texteditor.ContentAssistAction;
@@ -139,10 +120,7 @@ import io.usethesource.impulse.parser.IMessageHandler;
 import io.usethesource.impulse.parser.IModelListener;
 import io.usethesource.impulse.parser.IParseController;
 import io.usethesource.impulse.preferences.IPreferencesService;
-import io.usethesource.impulse.preferences.IPreferencesService.BooleanPreferenceListener;
-import io.usethesource.impulse.preferences.IPreferencesService.IntegerPreferenceListener;
 import io.usethesource.impulse.preferences.IPreferencesService.PreferenceServiceListener;
-import io.usethesource.impulse.preferences.IPreferencesService.StringPreferenceListener;
 import io.usethesource.impulse.preferences.PreferenceCache;
 import io.usethesource.impulse.preferences.PreferenceConstants;
 import io.usethesource.impulse.preferences.PreferencesService;
@@ -575,7 +553,6 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
         setStatusLineErrorMessage(null);
         setStatusLineMessage(null);
         if (annotation != null) {
-        	updateAnnotationViews(annotation);
         	selectAndReveal(position.getOffset(), position.getLength());
         	setStatusLineMessage(annotation.getText());
         }
@@ -652,33 +629,6 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
         return nextAnnotation;
     }
 
-    /**
-     * Updates the annotation views that show the given annotation.
-     *
-     * @param annotation the annotation
-     */
-    private void updateAnnotationViews(Annotation annotation) {
-        IMarker marker= null;
-        if (annotation instanceof MarkerAnnotation)
-            marker= ((MarkerAnnotation) annotation).getMarker();
-        else if (marker != null /* && !marker.equals(fLastMarkerTarget) */) {
-            try {
-                boolean isProblem= marker.isSubtypeOf(IMarker.PROBLEM);
-                IWorkbenchPage page= getSite().getPage();
-                IViewPart view= page.findView(isProblem ? IPageLayout.ID_PROBLEM_VIEW : IPageLayout.ID_TASK_LIST); //$NON-NLS-1$  //$NON-NLS-2$
-                if (view != null) {
-                    Method method= view.getClass().getMethod("setSelection", new Class[] { IStructuredSelection.class, boolean.class }); //$NON-NLS-1$
-                    method.invoke(view, new Object[] { new StructuredSelection(marker), Boolean.TRUE });
-                }
-            } catch (CoreException x) {
-            } catch (NoSuchMethodException x) {
-            } catch (IllegalAccessException x) {
-            } catch (InvocationTargetException x) {
-            }
-            // ignore exceptions, don't update any of the lists, just set status line
-        }
-    }
-
     @Override
     public IDocumentProvider getDocumentProvider() {
         IEditorInput editorInput= getEditorInput();
@@ -726,21 +676,8 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
             initiateServiceControllers();
         }
 
-        // SMS 4 Apr 2007:  Call no longer needed because preferences for the
-        // overview ruler are now obtained from appropriate preference store directly
-        //setupOverviewRulerAnnotations();
-
-        // SMS 4 Apr 2007:  Also should not need this, since we're not using
-        // the plugin's store (for this purpose)
-        //AbstractDecoratedTextEditorPreferenceConstants.initializeDefaultValues(RuntimePlugin.getInstance().getPreferenceStore());
-
         setTitleImageFromLanguageIcon();
-        setSourceFontFromPreference();
-        setupBracketCloser();
-        setupSourcePrefListeners();
-
         initializeEditorContributors();
-
         watchForSourceMove();
 
         if (isEditable() && getResourceDocumentMapListener() != null) {
@@ -801,98 +738,6 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
         getPreferenceStore().setValue(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS, spacesForTabs);
     }
 
-    private void setupSourcePrefListeners() {
-        // If there are no language-specific preferences, use the settings on the IMP preferences page
-        if (fLangSpecificPrefs == null ||
-                !fLangSpecificPrefs.isDefined(PreferenceConstants.P_SOURCE_FONT) ||
-                !fLangSpecificPrefs.isDefined(PreferenceConstants.P_TAB_WIDTH) ||
-                !fLangSpecificPrefs.isDefined(PreferenceConstants.P_SPACES_FOR_TABS)) {
-            fPropertyListener= new IPropertyChangeListener() {
-                public void propertyChange(PropertyChangeEvent event) {
-                    if (event.getProperty().equals(PreferenceConstants.P_SOURCE_FONT) &&
-                        !fLangSpecificPrefs.isDefined(PreferenceConstants.P_SOURCE_FONT)) {
-                        FontData[] newValue= (FontData[]) event.getNewValue();
-                        String fontDescriptor= newValue[0].toString();
-
-                        handleFontChange(newValue, fontDescriptor);
-                    } else if (event.getProperty().equals(PreferenceConstants.P_TAB_WIDTH) &&
-                               !fLangSpecificPrefs.isDefined(PreferenceConstants.P_TAB_WIDTH)) {
-                        handleTabsChange(((Integer) event.getNewValue()).intValue());
-                    } else if (event.getProperty().equals(PreferenceConstants.P_SPACES_FOR_TABS) &&
-                               !fLangSpecificPrefs.isDefined(PreferenceConstants.P_SPACES_FOR_TABS)) {
-                        handleSpacesForTabsChange(((Boolean) event.getNewValue()).booleanValue());
-                    }
-                }
-            };
-            RuntimePlugin.getInstance().getPreferenceStore().addPropertyChangeListener(fPropertyListener);
-        }
-        // TODO Perhaps add a flavor of IMP PreferenceListener that notifies for a change to any preference key?
-        // Then the following listeners could become just one, at the expense of casting the pref values.
-        if (fLangSpecificPrefs != null) {
-            fFontListener= new StringPreferenceListener(fLangSpecificPrefs, PreferenceConstants.P_SOURCE_FONT) {
-                @Override
-                public void changed(String oldValue, String newValue) {
-                    FontData[] fontData= PreferenceConverter.readFontData(newValue);
-                    handleFontChange(fontData, newValue);
-                }
-            };
-        }
-        if (fLangSpecificPrefs != null) {
-            fTabListener= new IntegerPreferenceListener(fLangSpecificPrefs, PreferenceConstants.P_TAB_WIDTH) {
-                @Override
-                public void changed(int oldValue, int newValue) {
-                    handleTabsChange(newValue);
-                }
-            };
-        }
-        if (fLangSpecificPrefs != null) {
-            fSpacesForTabsListener= new BooleanPreferenceListener(fLangSpecificPrefs, PreferenceConstants.P_SPACES_FOR_TABS) {
-                @Override
-                public void changed(boolean oldValue, boolean newValue) {
-                    handleSpacesForTabsChange(newValue);
-                }
-            };
-        }
-    }
-
-    private void handleTabsChange(int newTab) {
-        if (getSourceViewer() != null) {
-            getSourceViewer().getTextWidget().setTabs(newTab);
-        }
-    }
-
-    private void handleSpacesForTabsChange(boolean newValue) {
-        if (getSourceViewer() == null) {
-            return;
-        }
-        // RMF 13 Oct 2010 - The base class tabs-to-spaces converter even translates tabs to
-        // spaces before the auto-edit strategy sees the document change commands, which makes
-        // handling auto-indent nearly impossible (it never actually sees a tab). Anyway, the
-        // auto-edit strategy provides the desired behavior itself, so this isn't even needed.
-//        if (newValue) {
-//            installTabsToSpacesConverter();
-//        } else {
-//            uninstallTabsToSpacesConverter();
-//        }
-        // Apparently un/installing the tabs-to-spaces converter isn't enough - shift left/right needs
-        // the "indent prefixes" to be computed properly, which relies on the preference store having
-        // the right value for AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS.
-        getPreferenceStore().setValue(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS, newValue);
-    }
-
-    private void handleFontChange(FontData[] fontData, String fontDescriptor) {
-        FontRegistry fontRegistry= RuntimePlugin.getInstance().getFontRegistry();
-
-        if (!fontRegistry.hasValueFor(fontDescriptor)) {
-            fontRegistry.put(fontDescriptor, fontData);
-        }
-        Font sourceFont= fontRegistry.get(fontDescriptor);
-
-        if (sourceFont != null && getSourceViewer() != null) {
-            getSourceViewer().getTextWidget().setFont(sourceFont);
-        }
-    }
-
     private void watchDocument(final long reparse_schedule_delay) {
         if (fLanguageServiceManager.getParseController() == null) {
             return;
@@ -907,79 +752,6 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
                 fParserScheduler.schedule(reparse_schedule_delay);
             }
         });
-    }
-
-    private class BracketInserter implements VerifyKeyListener {
-        private final Map<String,String> fFencePairs= new HashMap<String, String>();
-        private final String fOpenFences;
-        private final Map<Character,Boolean> fCloseFenceMap= new HashMap<Character, Boolean>();
-//      private final String CATEGORY= toString();
-//      private IPositionUpdater fUpdater= new ExclusivePositionUpdater(CATEGORY);
-
-        public BracketInserter() {
-            String[][] pairs= fLanguageServiceManager.getParseController().getSyntaxProperties().getFences();
-            StringBuilder sb= new StringBuilder();
-            for(int i= 0; i < pairs.length; i++) {
-                sb.append(pairs[i][0]);
-                fFencePairs.put(pairs[i][0], pairs[i][1]);
-            }
-            fOpenFences= sb.toString();
-        }
-
-        public void setCloseFencesEnabled(boolean enabled) {
-            for(int i= 0; i < fOpenFences.length(); i++) {
-                fCloseFenceMap.put(fOpenFences.charAt(i), enabled);
-            }
-        }
-
-        /*
-         * @see org.eclipse.swt.custom.VerifyKeyListener#verifyKey(org.eclipse.swt.events.VerifyEvent)
-         */
-        public void verifyKey(VerifyEvent event) {
-            // early pruning to slow down normal typing as little as possible
-            if (!event.doit || getInsertMode() != SMART_INSERT)
-                return;
-
-            if (fOpenFences.indexOf(event.character) < 0) {
-                return;
-            }
-
-            final ISourceViewer sourceViewer= getSourceViewer();
-            IDocument document= sourceViewer.getDocument();
-
-            final Point selection= sourceViewer.getSelectedRange();
-            final int offset= selection.x;
-            final int length= selection.y;
-
-            try {
-//              IRegion startLine= document.getLineInformationOfOffset(offset);
-//              IRegion endLine= document.getLineInformationOfOffset(offset + length);
-
-                // TODO Ask the parser/scanner whether the close fence is valid here
-                // (i.e. whether it would recover by inserting the matching close fence character)
-                // Right now, naively insert the closing fence regardless.
-
-                ITypedRegion partition= TextUtilities.getPartition(document, getSourceViewerConfiguration().getConfiguredDocumentPartitioning(sourceViewer), offset, true);
-                if (!IDocument.DEFAULT_CONTENT_TYPE.equals(partition.getType()))
-                    return;
-
-                if (!validateEditorInputState())
-                    return;
-
-                final String inputStr= new String(new char[] { event.character });
-                final String closingFence= fFencePairs.get(inputStr);
-                final StringBuffer buffer= new StringBuffer();
-                buffer.append(inputStr);
-                buffer.append(closingFence);
-
-                document.replace(offset, length, buffer.toString());
-                sourceViewer.setSelectedRange(offset + inputStr.length(), 0);
-
-                event.doit= false;
-            } catch (BadLocationException e) {
-                RuntimePlugin.getInstance().logException(e.getMessage(), e);
-            }
-        }
     }
 
     /**
@@ -1062,37 +834,6 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
                 }
             }
         });
-    }
-
-    private void setSourceFontFromPreference() {
-        String fontName= null;
-        if (fLangSpecificPrefs != null) {
-            fontName= fLangSpecificPrefs.getStringPreference(PreferenceConstants.P_SOURCE_FONT);
-        }
-        if (fontName == null) {
-            // Don't use the IMP SourceFont pref key on the IMP RuntimePlugin's preference
-            // store; use the JFaceResources TEXT_FONT pref key on the WorkbenchPlugin's
-            // preference store. This way, the workbench-wide setting in "General" ->
-            // "Appearance" => "Colors and Fonts" will have the desired effect, in the
-            // absence of a language-specific setting.
-//          IPreferenceStore prefStore= RuntimePlugin.getInstance().getPreferenceStore();
-//
-//          fontName= prefStore.getString(PreferenceConstants.P_SOURCE_FONT);
-
-            IPreferenceStore prefStore=  WorkbenchPlugin.getDefault().getPreferenceStore();
-
-            fontName= prefStore.getString(JFaceResources.TEXT_FONT);
-        }
-        FontRegistry fontRegistry= RuntimePlugin.getInstance().getFontRegistry();
-
-        if (!fontRegistry.hasValueFor(fontName)) {
-            fontRegistry.put(fontName, PreferenceConverter.readFontData(fontName));
-        }
-        Font sourceFont= fontRegistry.get(fontName);
-
-        if (sourceFont != null) {
-            getSourceViewer().getTextWidget().setFont(sourceFont);
-        }
     }
 
     private void initiateServiceControllers() {

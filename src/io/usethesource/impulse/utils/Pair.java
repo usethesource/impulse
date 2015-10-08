@@ -20,11 +20,12 @@ public class Pair<T1,T2> {
         return 6143 + 2399 * first.hashCode() + 7433 * second.hashCode();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Pair)) return false;
-        Pair other= (Pair) obj;
+        if (!(obj instanceof Pair)) {
+        	return false;
+        }
+        Pair<?,?> other= (Pair<?,?>) obj;
 
         return other.first.equals(first) && other.second.equals(second);
     }
