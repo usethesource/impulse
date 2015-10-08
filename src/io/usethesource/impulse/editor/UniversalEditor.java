@@ -392,7 +392,6 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
     }
 
     private QuickMenuAction fQuickAccessAction;
-    private IHandlerActivation fQuickAccessHandlerActivation;
     private IHandlerService fHandlerService;
 
     private static final String QUICK_MENU_ID= "io.usethesource.impulse.runtime.editor.refactor.quickMenu"; //$NON-NLS-1$
@@ -423,7 +422,7 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
         fHandlerService= (IHandlerService) getSite().getService(IHandlerService.class);
         if (fHandlerService != null) {
             fQuickAccessAction= new RefactorQuickAccessAction();
-            fQuickAccessHandlerActivation= fHandlerService.activateHandler(fQuickAccessAction.getActionDefinitionId(), new ActionHandler(fQuickAccessAction));
+            fHandlerService.activateHandler(fQuickAccessAction.getActionDefinitionId(), new ActionHandler(fQuickAccessAction));
         }
     }
     
@@ -927,10 +926,6 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
             fOpenFences= sb.toString();
         }
 
-        public void setCloseFenceEnabled(char openingFence, boolean enabled) {
-            fCloseFenceMap.put(openingFence, enabled);
-        }
-
         public void setCloseFencesEnabled(boolean enabled) {
             for(int i= 0; i < fOpenFences.length(); i++) {
                 fCloseFenceMap.put(fOpenFences.charAt(i), enabled);
@@ -985,27 +980,6 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
                 RuntimePlugin.getInstance().logException(e.getMessage(), e);
             }
         }
-    }
-
-    private BracketInserter fBracketInserter;
-    private final String CLOSE_FENCES= PreferenceConstants.EDITOR_CLOSE_FENCES;
-
-    private void setupBracketCloser() {
-        if (true) return; // Bug #536: Disable for now, until we can be more intelligent about when to overwrite an existing (subsequent) close-fence char.
-        IParseController parseController= fLanguageServiceManager.getParseController();
-        if (parseController == null || parseController.getSyntaxProperties() == null || parseController.getSyntaxProperties().getFences() == null) {
-            return;
-        }
-
-        /** Preference key for automatically closing brackets and parenthesis */
-        boolean closeFences= fLangSpecificPrefs.getBooleanPreference(CLOSE_FENCES); // false if no lang-specific setting
-
-        fBracketInserter= new BracketInserter();
-        fBracketInserter.setCloseFencesEnabled(closeFences);
-
-        ISourceViewer sourceViewer= getSourceViewer();
-        if (sourceViewer instanceof ITextViewerExtension)
-            ((ITextViewerExtension) sourceViewer).prependVerifyKeyListener(fBracketInserter);
     }
 
     /**
@@ -1105,7 +1079,7 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
 //
 //          fontName= prefStore.getString(PreferenceConstants.P_SOURCE_FONT);
 
-            IPreferenceStore prefStore= WorkbenchPlugin.getDefault().getPreferenceStore();
+            IPreferenceStore prefStore=  WorkbenchPlugin.getDefault().getPreferenceStore();
 
             fontName= prefStore.getString(JFaceResources.TEXT_FONT);
         }
