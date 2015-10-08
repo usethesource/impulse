@@ -53,7 +53,7 @@
    <extension
          point="org.eclipse.ui.editorActions">
       <editorContribution
-       	  targetID="io.usethesource.impulse.runtime.impEditor"
+       	  targetID="impulse.impEditor"
           id="imp.rulerActions">
          <action
              label="Not Used"
@@ -83,7 +83,7 @@
             super="org.eclipse.ui.workbench.texteditor.info"/>
       <type
             markerSeverity="0"
-            name="io.usethesource.impulse.runtime.occurrenceAnnotation"
+            name="impulse.occurrenceAnnotation"
             super="org.eclipse.ui.workbench.texteditor.info"/>
    </extension>
    <extension
@@ -104,7 +104,7 @@
    <extension
          point="org.eclipse.ui.editors.markerAnnotationSpecification">
       <specification
-            annotationType="io.usethesource.impulse.runtime.occurrenceAnnotation"
+            annotationType="impulse.occurrenceAnnotation"
             colorPreferenceKey="occurrenceColorPreference"
             colorPreferenceValue="0,255,128"
             contributesToHeader="false"
@@ -134,7 +134,7 @@
             name="Impulse Source Editor"
             description="Scope for all Impulse source editors"
             parentId="org.eclipse.ui.textEditorScope"
-            id="io.usethesource.impulse.runtime.sourceEditorScope">
+            id="impulse.sourceEditorScope">
          </context>
    </extension>
    <extension
@@ -142,92 +142,92 @@
       <!--  win32:  M1=CTRL,    M2=SHIFT, M3=ALT, M4=-
             carbon: M1=COMMAND, M2=SHIFT, M3=ALT, M4=CTRL -->
       <key
-            commandId="io.usethesource.impulse.runtime.editor.showOutline"
-            contextId="io.usethesource.impulse.runtime.sourceEditorScope"
+            commandId="impulse.editor.showOutline"
+            contextId="impulse.sourceEditorScope"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+O"/>
       <key
-            commandId="io.usethesource.impulse.runtime.editor.toggleComment"
-            contextId="io.usethesource.impulse.runtime.sourceEditorScope"
+            commandId="impulse.editor.toggleComment"
+            contextId="impulse.sourceEditorScope"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+/"/>
       <key
-            commandId="io.usethesource.impulse.runtime.editor.correctIndentation"
-            contextId="io.usethesource.impulse.runtime.sourceEditorScope"
+            commandId="impulse.editor.correctIndentation"
+            contextId="impulse.sourceEditorScope"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+I"/>
       <key
-            commandId="io.usethesource.impulse.runtime.editor.formatSource"
-            contextId="io.usethesource.impulse.runtime.sourceEditorScope"
+            commandId="impulse.editor.formatSource"
+            contextId="impulse.sourceEditorScope"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+M2+F"/>
       <key
             sequence="M1+M3+P"
-            contextId="io.usethesource.impulse.runtime.sourceEditorScope"
-            commandId="io.usethesource.impulse.runtime.editor.gotoMatchingFence"
+            contextId="impulse.sourceEditorScope"
+            commandId="impulse.editor.gotoMatchingFence"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
       <key
             sequence="M1+M3+T"
-            contextId="io.usethesource.impulse.runtime.sourceEditorScope"
-            commandId="io.usethesource.impulse.runtime.editor.refactor.quickMenu"
+            contextId="impulse.sourceEditorScope"
+            commandId="impulse.editor.refactor.quickMenu"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
       <key
             sequence="M2+M3+ARROW_UP"
-            contextId="io.usethesource.impulse.runtime.sourceEditorScope"
-            commandId="io.usethesource.impulse.runtime.editor.gotoPreviousTarget"
+            contextId="impulse.sourceEditorScope"
+            commandId="impulse.editor.gotoPreviousTarget"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
       <key
             platform="carbon"
             sequence="M3+M4+ARROW_UP"
-            contextId="io.usethesource.impulse.runtime.sourceEditorScope"
-            commandId="io.usethesource.impulse.runtime.editor.gotoPreviousTarget"
+            contextId="impulse.sourceEditorScope"
+            commandId="impulse.editor.gotoPreviousTarget"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
       <key
             sequence="M2+M3+ARROW_DOWN"
-            contextId="io.usethesource.impulse.runtime.sourceEditorScope"
-            commandId="io.usethesource.impulse.runtime.editor.gotoNextTarget"
+            contextId="impulse.sourceEditorScope"
+            commandId="impulse.editor.gotoNextTarget"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
       <key
             platform="carbon"
             sequence="M3+M4+ARROW_DOWN"
-            contextId="io.usethesource.impulse.runtime.sourceEditorScope"
-            commandId="io.usethesource.impulse.runtime.editor.gotoNextTarget"
+            contextId="impulse.sourceEditorScope"
+            commandId="impulse.editor.gotoNextTarget"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
       <key
             sequence="CTRL+SHIFT+ARROW_UP"
-            contextId="io.usethesource.impulse.runtime.sourceEditorScope"
-            commandId="io.usethesource.impulse.runtime.editor.selectEnclosing"
+            contextId="impulse.sourceEditorScope"
+            commandId="impulse.editor.selectEnclosing"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
       <key
             sequence="F3"
-            contextId="io.usethesource.impulse.runtime.sourceEditorScope"
-            commandId="io.usethesource.impulse.runtime.editor.openDeclaration"
+            contextId="impulse.sourceEditorScope"
+            commandId="impulse.editor.openDeclaration"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
       <category
-            id="io.usethesource.impulse.runtime.source"
+            id="impulse.source"
             name="Source"/>
       <category
-            id="io.usethesource.impulse.runtime.refactor"
+            id="impulse.refactor"
             name="Refactor"/>
       <command
             name="Refactor"
             description="Show Refactor Quick Menu"
-            categoryId="io.usethesource.impulse.runtime.refactor"
-            id="io.usethesource.impulse.runtime.editor.refactor.quickMenu">
+            categoryId="impulse.refactor"
+            id="impulse.editor.refactor.quickMenu">
       </command>
       <command
             categoryId="org.eclipse.ui.category.navigate"
             description="Show the quick outline for the editor input"
-            id="io.usethesource.impulse.runtime.editor.showOutline"
+            id="impulse.editor.showOutline"
             name="Show Outline"/>
       <command
             name="Collapse Members"
             description="Collapses all members in the current source file"
             categoryId="org.eclipse.ui.category.textEditor"
-            id="io.usethesource.impulse.runtime.editor.folding.collapseMembers">
+            id="impulse.editor.folding.collapseMembers">
       </command>
       <command
             name="Collapse Comments"
@@ -236,14 +236,14 @@
             id="org.eclipse.jdt.ui.edit.text.java.folding.collapseComments">
       </command>
       <command
-            categoryId="io.usethesource.impulse.runtime.source"
+            categoryId="impulse.source"
             description="Comments/uncomments the current selection or the current source line"
-            id="io.usethesource.impulse.runtime.editor.toggleComment"
+            id="impulse.editor.toggleComment"
             name="Toggle Comment"/>
       <command
-            categoryId="io.usethesource.impulse.runtime.source"
+            categoryId="impulse.source"
             description="Format the source code"
-            id="io.usethesource.impulse.runtime.editor.formatSource"
+            id="impulse.editor.formatSource"
             name="Format"/>
 
       <!-- navigate -->
@@ -251,43 +251,43 @@
             name="Go to Matching Fence"
             description="Moves the cursor to the matching fence character, if any"
             categoryId="org.eclipse.ui.category.navigate"
-            id="io.usethesource.impulse.runtime.editor.gotoMatchingFence">
+            id="impulse.editor.gotoMatchingFence">
       </command>
       <command
             name="Go to Previous Navigation Target"
             description="Go to Previous Navigation Target"
-            categoryId="io.usethesource.impulse.runtime.source"
-            id="io.usethesource.impulse.runtime.editor.gotoPreviousTarget"/>
+            categoryId="impulse.source"
+            id="impulse.editor.gotoPreviousTarget"/>
       <command
             name="Go to Next Navigation Target"
             description="Go to Next Navigation Target"
-            categoryId="io.usethesource.impulse.runtime.source"
-            id="io.usethesource.impulse.runtime.editor.gotoNextTarget"/>
+            categoryId="impulse.source"
+            id="impulse.editor.gotoNextTarget"/>
       <command
             name="Open Declaration"
             description="Open an editor on the selected element"
             categoryId="org.eclipse.ui.category.navigate"
-            id="io.usethesource.impulse.runtime.editor.openDeclaration">
+            id="impulse.editor.openDeclaration">
       </command>
 
       <!-- -->
       <command
-            categoryId="io.usethesource.impulse.runtime.source"
+            categoryId="impulse.source"
             description="Re-indent the selected text according to current formatting settings"
-            id="io.usethesource.impulse.runtime.editor.correctIndentation"
+            id="impulse.editor.correctIndentation"
             name="Correct Indentation">
       </command>
       <command
-            categoryId="io.usethesource.impulse.runtime.source"
+            categoryId="impulse.source"
             description="Select the innermost enclosing construct"
-            id="io.usethesource.impulse.runtime.editor.selectEnclosing"
+            id="impulse.editor.selectEnclosing"
             name="Select Enclosing">
       </command>
    </extension>
    <extension
          point="org.eclipse.ui.actionSets">
       <actionSet
-            id="io.usethesource.impulse.runtime.refactoringActions"
+            id="impulse.refactoringActions"
             label="Impulse Refactoring Actions"
             visible="true">
          <menu
@@ -297,13 +297,13 @@
          </menu>
       </actionSet>
       <actionSet
-            id="io.usethesource.impulse.runtime.analysisActions"
+            id="impulse.analysisActions"
             label="Impulse Analysis Actions"
             visible="true">
          <action
                class="io.usethesource.impulse.editor.MarkOccurrencesAction"
                icon="icons/mark_occurrences.gif"
-               id="io.usethesource.impulse.runtime.actions.markOccurrencesAction"
+               id="impulse.actions.markOccurrencesAction"
                label="&amp;Toggle Mark Occurrences"
                state="false"
                style="toggle"
@@ -314,7 +314,7 @@
             label="Impulse Open Actions"
             description="Action set containing open actions for Impulse"
             visible="false"
-            id="io.usethesource.impulse.runtime.openActionSet">
+            id="impulse.openActionSet">
 <!--
          <action
                definitionId="org.eclipse.jdt.ui.edit.text.java.open.call.hierarchy"
@@ -324,28 +324,28 @@
                id="org.eclipse.jdt.ui.actions.OpenCallHierarchy">
          </action>
          <action
-               definitionId="io.usethesource.impulse.runtime.editor.openTypeHierarchy"
+               definitionId="impulse.editor.openTypeHierarchy"
                label="%OpenTypeHierarchyAction.label"
                retarget="true"
                menubarPath="navigate/open.ext"
-               id="io.usethesource.impulse.runtime.actions.OpenTypeHierarchy">
+               id="impulse.actions.OpenTypeHierarchy">
          </action>
 -->
          <action
-               definitionId="io.usethesource.impulse.runtime.editor.openDeclaration"
+               definitionId="impulse.editor.openDeclaration"
                label="&amp;Open"
                tooltip="Open an Editor on the Selected Element"
                retarget="true"
                menubarPath="navigate/open.ext"
                allowLabelUpdate="true"
-               id="io.usethesource.impulse.runtime.actions.Open">
+               id="impulse.actions.Open">
          </action>
       </actionSet>
 	  <actionSet
 	           label="Impulse Coding"
 	           description="Action set containing coding related Impulse actions"
 	           visible="false"
-	           id="io.usethesource.impulse.runtime.codingActionSet">
+	           id="impulse.codingActionSet">
 <!-- =========================================================================== -->
 <!-- Source Menu                                                                 -->
 <!-- =========================================================================== -->   
@@ -498,33 +498,33 @@
                id="org.eclipse.jdt.ui.actions.FormatElement">
          </action>
          <action
-               definitionId="io.usethesource.impulse.runtime.editor.formatSource"
+               definitionId="impulse.editor.formatSource"
                label="Format"
                retarget="true"
                menubarPath="io.usethesource.impulse.source.menu/editGroup"
-               id="io.usethesource.impulse.runtime.actions.Format">
+               id="impulse.actions.Format">
          </action>
 -->
          <action
-               definitionId="io.usethesource.impulse.runtime.editor.correctIndentation"
+               definitionId="impulse.editor.correctIndentation"
                label="Correct Indentation"
                retarget="true"
                menubarPath="io.usethesource.impulse.source.menu/editGroup"
-               id="io.usethesource.impulse.runtime.actions.correctIndentation">
+               id="impulse.actions.correctIndentation">
          </action>
          <action
                definitionId="org.eclipse.ui.edit.text.shiftLeft"
                label="Shift Left"
                retarget="true"
                menubarPath="io.usethesource.impulse.source.menu/editGroup"
-               id="io.usethesource.impulse.runtime.actions.shiftLeft">
+               id="impulse.actions.shiftLeft">
          </action>
          <action
                definitionId="org.eclipse.ui.edit.text.shiftRight"
                label="Shift Right"
                retarget="true"
                menubarPath="io.usethesource.impulse.source.menu/editGroup"
-               id="io.usethesource.impulse.runtime.actions.shiftRight">
+               id="impulse.actions.shiftRight">
          </action>
 <!-- Comment Group -->
 <!--
@@ -563,18 +563,18 @@
          </action>
 -->
          <action
-               definitionId="io.usethesource.impulse.runtime.editor.toggleComment"
+               definitionId="impulse.editor.toggleComment"
                label="Toggle Comment"
                retarget="true"
                menubarPath="io.usethesource.impulse.source.menu/commentGroup"
-               id="io.usethesource.impulse.runtime.actions.toggleComment">
+               id="impulse.actions.toggleComment">
          </action>         
       </actionSet>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension targetID="org.eclipse.jdt.ui.JavaPerspective">
-         <showInPart id="io.usethesource.impulse.runtime.projectExplorerView"/>
+         <showInPart id="impulse.projectExplorerView"/>
       </perspectiveExtension>
    </extension>
    <extension
@@ -588,14 +588,14 @@
       <page
             name="Impulse"
             class="io.usethesource.impulse.preferences.PreferencePage"
-            id="io.usethesource.impulse.runtime.preferencePage">
+            id="impulse.preferencePage">
       </page>
    </extension>
    <extension
          point="org.eclipse.ui.popupMenus">
       <viewerContribution
             targetID="#TextRulerContext"
-            id="io.usethesource.impulse.runtime.QuickFixRulerMenuAction">
+            id="impulse.QuickFixRulerMenuAction">
          <action
                label="QuickFix"
                class="io.usethesource.impulse.actions.SelectRulerAction"
