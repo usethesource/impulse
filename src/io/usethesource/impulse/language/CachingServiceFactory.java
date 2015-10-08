@@ -16,7 +16,6 @@ import java.util.Set;
 import io.usethesource.impulse.editor.OutlineContentProviderBase;
 import io.usethesource.impulse.editor.OutlineLabelProvider.IElementImageProvider;
 import io.usethesource.impulse.indexing.IndexContributorBase;
-import io.usethesource.impulse.parser.IModelListener;
 import io.usethesource.impulse.parser.IParseController;
 import io.usethesource.impulse.services.IASTAdapter;
 import io.usethesource.impulse.services.IAnnotationHover;
@@ -55,7 +54,6 @@ public class CachingServiceFactory extends ServiceFactory {
     private IAnnotationHover annotationHover;
     private IFoldingUpdater foldingUpdater;
     private Set<IAutoEditStrategy> autoEditStrategies;
-    private IModelListener modelListener;
     private TreeModelBuilderBase treeModelBuilder;
     private IParseController parseController;
     private IndexContributorBase indexContributor;
@@ -112,14 +110,6 @@ public class CachingServiceFactory extends ServiceFactory {
             treeModelBuilder = super.getTreeModelBuilder(lang);
         }
         return treeModelBuilder;
-    }
-
-    @Override
-    public IModelListener getModelListener(Language lang) {
-        if (modelListener == null) {
-            modelListener = super.getModelListener(lang);
-        }
-        return modelListener;
     }
 
     @Override
@@ -195,7 +185,6 @@ public class CachingServiceFactory extends ServiceFactory {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public Set<ILanguageActionsContributor> getLanguageActionsContributors(Language lang) {
         if (languageActionsContributors == null) {
             languageActionsContributors = super

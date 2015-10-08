@@ -19,7 +19,6 @@
    <extension-point id="labelProvider" name="Label Provider" schema="schema/labelProvider.exsd"/>
    <extension-point id="languageDescription" name="Description of a programming language" schema="schema/languageDescription.exsd"/>
    <extension-point id="markOccurrences" name="Mark Occurrences" schema="schema/markOccurrences.exsd"/>
-   <extension-point id="modelListener" name="Listener for model changes" schema="schema/modelListener.exsd"/>
    <extension-point id="modelTreeBuilder" name="Model Tree Builder" schema="schema/modelTreeBuilder.exsd"/>
    <extension-point id="navigationTargetFinder" name="Navigation target finder" schema="schema/navigationTargetFinder.exsd"/>
    <extension-point id="outlineContentProvider" name="Outline Content Provider" schema="schema/outlineContentProvider.exsd"/>

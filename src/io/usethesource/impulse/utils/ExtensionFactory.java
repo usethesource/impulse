@@ -312,7 +312,6 @@ public class ExtensionFactory {
      */
     private static ILanguageService loadLanguageService(IExtensionPoint extensionPoint, String language, String elementName, IConfigurationElement element) throws ExtensionException {
         Bundle bundle = Platform.getBundle(element.getDeclaringExtension().getContributor().getName());
-//        Bundle bundle = Platform.getBundle(element.getDeclaringExtension().getNamespaceIdentifier());
         
         String lowerLang = language.toLowerCase();
 

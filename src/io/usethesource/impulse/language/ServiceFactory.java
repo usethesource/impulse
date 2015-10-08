@@ -464,21 +464,6 @@ public class ServiceFactory {
         return null;
     }
 
-    public IModelListener getModelListener(Language lang) {
-        try {
-            return (IModelListener) loadService(lang, MODEL_LISTENER_SERVICE);
-        } catch (LinkageError e) {
-            RuntimePlugin.getInstance().logException(
-                    "Linkage error attempting to load implementation of " + MODEL_LISTENER_SERVICE,
-                    e);
-        } catch (ClassCastException e) {
-            RuntimePlugin.getInstance().logException(
-                    "Alleged implementation of " + MODEL_LISTENER_SERVICE + " does not implement IModelListener",
-                    e);
-        }
-        return null;
-    }
-
     public INavigationTargetFinder getNavigationTargetFinder(Language lang) {
         try {
             return (INavigationTargetFinder) loadService(lang, NAVIGATION_TARGET_FINDER_SERVICE);
