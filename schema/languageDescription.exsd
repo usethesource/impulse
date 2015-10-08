@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="io.usethesource.impulse.runtime" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="impulse" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="io.usethesource.impulse.runtime" id="languageDescription" name="IMP Programming Language Description"/>
+         <meta.schema plugin="impulse" id="languageDescription" name="IMP Programming Language Description"/>
       </appInfo>
       <documentation>
          The io.usethesource.impulse.runtime.languageDescription extension points allows contributors to describe a programming language by providing attributes such as a name for the language, synonyms, a description, and a URL with more information on the programming language.

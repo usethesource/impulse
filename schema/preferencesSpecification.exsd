@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="io.usethesource.impulse.runtime">
+<schema targetNamespace="impulse" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="io.usethesource.impulse.runtime" id="preferencesSpecification" name="Preferences Specification"/>
+         <meta.schema plugin="impulse" id="preferencesSpecification" name="Preferences Specification"/>
       </appInfo>
       <documentation>
          An extension point for adding specifications for preferences for IMP-based IDEs.  Preferences specifications are written in the prefspecs language.
@@ -11,6 +11,11 @@
    </annotation>
 
    <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
       <complexType>
          <sequence>
             <element ref="preferencesSpecification"/>
@@ -33,7 +38,6 @@
             <annotation>
                <documentation>
                   Omitted
-
                </documentation>
                <appInfo>
                   <meta.attribute translatable="true"/>
@@ -72,8 +76,7 @@
          <attribute name="pagePackage" type="string" use="required">
             <annotation>
                <documentation>
-                  The package in the IDE plugin project into which the preferences-specification file will be generated.	This will also be the package in which preferences-related classes that are based on the specification will be generated.
-
+                  The package in the IDE plugin project into which the preferences-specification file will be generated. This will also be the package in which preferences-related classes that are based on the specification will be generated.
                </documentation>
                <appInfo>
                   <meta.attribute kind="java" basedOn="io.usethesource.impulse.wizards.ExtensionPointWizardPage$PackageBrowse"/>
@@ -154,13 +157,5 @@
       </documentation>
    </annotation>
 
-   <annotation>
-      <appInfo>
-         <meta.section type="copyright"/>
-      </appInfo>
-      <documentation>
-         
-      </documentation>
-   </annotation>
 
 </schema>

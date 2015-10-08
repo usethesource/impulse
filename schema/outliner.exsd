@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="io.usethesource.impulse.metatooling">
+<schema targetNamespace="impulse" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="io.usethesource.impulse.metatooling" id="Outliner" name="IMP IDE Outliner"/>
+         <meta.schema plugin="impulse" id="Outliner" name="Impulse Outliner"/>
       </appInfo>
       <documentation>
          The org.eclips.imp.editor.outliner extension point allows providers to provide outline view contents. The provider specifies what languages it can provide an outline for. The provider has to implement the IOutliner interface. It will be presented with an IModel, and from this update the Outline view to show the appropriate outline.
@@ -11,6 +11,11 @@
    </annotation>
 
    <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
       <complexType>
          <sequence>
             <element ref="outliner"/>

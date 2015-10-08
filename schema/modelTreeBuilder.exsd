@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="io.usethesource.impulse.runtime">
+<schema targetNamespace="impulse" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="io.usethesource.impulse.runtime" id="modelTreeBuilder" name="Model Tree Builder"/>
+         <meta.schema plugin="impulse" id="modelTreeBuilder" name="Model Tree Builder"/>
       </appInfo>
       <documentation>
          Implementors of this extension point build a language-specific tree consisting of ModelTreeNodes that typically describes a portion of the structure of a given compilation unit, e.g., the portion that should presented in a structural outline view.
@@ -11,6 +11,11 @@
    </annotation>
 
    <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
       <complexType>
          <sequence>
             <element ref="treeBuilder"/>
@@ -100,13 +105,5 @@
       </documentation>
    </annotation>
 
-   <annotation>
-      <appInfo>
-         <meta.section type="copyright"/>
-      </appInfo>
-      <documentation>
-         
-      </documentation>
-   </annotation>
 
 </schema>

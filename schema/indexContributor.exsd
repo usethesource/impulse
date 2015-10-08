@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="io.usethesource.impulse.metatooling">
+<schema targetNamespace="impulse" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="io.usethesource.impulse.metatooling" id="index" name="IMP Index of shared artifacts"/>
+         <meta.schema plugin="impulse" id="index" name="Impulse Indexer"/>
       </appInfo>
       <documentation>
          The io.usethesource.impulse.indexContributor extension point allows contributors to define and share artifacts through a central index. What is kept in the index, and how to access it, is left up to the implementors of the programming language.
@@ -12,6 +12,9 @@
 
    <element name="extension">
       <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
          <documentation>
             Provide an implementation of an index of shared artifact of programs written for a given language. The actual contents is diverse and depends on the lanuage used.
          </documentation>
@@ -117,13 +120,5 @@ The extension point serves mostly as a central registration location for languag
       </documentation>
    </annotation>
 
-   <annotation>
-      <appInfo>
-         <meta.section type="copyright"/>
-      </appInfo>
-      <documentation>
-         
-      </documentation>
-   </annotation>
 
 </schema>

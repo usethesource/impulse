@@ -3,7 +3,7 @@
 <schema targetNamespace="io.usethesource.impulse.runtime" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="io.usethesource.impulse.runtime" id="editorServiceController" name="IMP Editor Service"/>
+         <meta.schema plugin="impulse" id="editorService" name="Impulse Editor Service"/>
       </appinfo>
       <documentation>
          Implementors of this extension point perform some service on behalf of a language-specific editor, typically based on the AST of the currently edited source file.

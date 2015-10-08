@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="io.usethesource.impulse.runtime" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="impulse" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="io.usethesource.impulse.runtime" id="toggleBreakpointHandler" name="Toggle Breakpoint Handler"/>
+         <meta.schema plugin="impulse" id="toggleBreakpointHandler" name="Toggle Breakpoint Handler"/>
       </appInfo>
       <documentation>
          [Enter description of this extension point.]

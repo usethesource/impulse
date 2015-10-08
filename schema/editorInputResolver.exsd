@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="io.usethesource.impulse.runtime" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="impulse" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="io.usethesource.impulse.runtime" id="editorInputResolver" name="Editor Input Resolver"/>
+         <meta.schema plugin="impulse" id="editorInputResolver" name="Editor Input Resolver"/>
       </appInfo>
       <documentation>
          Implementors of this extension point resolve an IEditorInput into a path, file, or file name extension.
@@ -104,5 +104,6 @@
          [Enter information about supplied implementation of this extension point.]
       </documentation>
    </annotation>
+
 
 </schema>

@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="io.usethesource.impulse.metatooling">
+<schema targetNamespace="impulse" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="io.usethesource.impulse.metatooling" id="contentProposer" name="IMP IDE Content Proposer"/>
+         <meta.schema plugin="impulse" id="contentProposer" name="IMP IDE Content Proposer"/>
       </appInfo>
       <documentation>
          The org.eclips.imp.editor.contentProposer extension point allows contributors to provide content assist proposals. The provider specifies what languages it can provide content proposals for. The provider has to implement the IContentProposer interface. The proposer will be presented with an IModel and a location, and from this combination returns a list of relevant content proposals.
@@ -11,6 +11,11 @@
    </annotation>
 
    <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
       <complexType>
          <sequence>
             <element ref="proposer"/>
