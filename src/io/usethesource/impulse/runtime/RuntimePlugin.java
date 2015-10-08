@@ -31,9 +31,6 @@ import io.usethesource.impulse.preferences.PreferenceCache;
 import io.usethesource.impulse.preferences.PreferenceConstants;
 import io.usethesource.impulse.utils.ConsoleUtil;
 
-/**
- * The bundle activator class for the IMP runtime.
- */
 public class RuntimePlugin extends PluginBase implements IStartup {
     /**
      * An IAdapterFactory implementation that adapts IResources to ISourceEntity's.
@@ -128,11 +125,7 @@ public class RuntimePlugin extends PluginBase implements IStartup {
 
         // Initialize the Preferences fields with the preference store data.
         IPreferenceStore prefStore= getPreferenceStore();
-
         PreferenceCache.emitMessages= prefStore.getBoolean(PreferenceConstants.P_EMIT_MESSAGES);
-        PreferenceCache.tabWidth= prefStore.getInt(PreferenceConstants.P_TAB_WIDTH);
-
-//      PreferenceCache.sourceFont= new Font(PlatformUI.getWorkbench().getDisplay(), PreferenceConverter.getFontData(prefStore, PreferenceConstants.P_SOURCE_FONT));
 
         Platform.getAdapterManager().registerAdapters(new ResourceToSourceEntityAdapter(), IResource.class);
     }

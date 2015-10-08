@@ -87,7 +87,6 @@ import org.eclipse.ui.SubActionBars;
 import org.eclipse.ui.actions.ActionContext;
 import org.eclipse.ui.editors.text.TextEditor;
 import org.eclipse.ui.handlers.IHandlerService;
-import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.eclipse.ui.texteditor.AbstractTextEditor;
 import org.eclipse.ui.texteditor.ContentAssistAction;
 import org.eclipse.ui.texteditor.IDocumentProvider;
@@ -730,12 +729,6 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
         } else {
             fLangSpecificPrefs= new PreferencesService(null, fLanguage.getName());
         }
-        // Now propagate the setting of "spaces for tabs" from either the language-specific preference store,
-        // or the IMP runtime's preference store to the UniversalEditor's preference store, where
-        // AbstractDecoratedTextEditor.isTabsToSpacesConversionEnabled() will look.
-        boolean spacesForTabs= RuntimePlugin.getInstance().getPreferenceStore().getBoolean(PreferenceConstants.P_SPACES_FOR_TABS);
-
-        getPreferenceStore().setValue(AbstractDecoratedTextEditorPreferenceConstants.EDITOR_SPACES_FOR_TABS, spacesForTabs);
     }
 
     private void watchDocument(final long reparse_schedule_delay) {

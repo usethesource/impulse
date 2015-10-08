@@ -18,7 +18,19 @@ import java.util.Set;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.text.*;
+import org.eclipse.jface.text.AbstractInformationControlManager;
+import org.eclipse.jface.text.DefaultInformationControl;
+import org.eclipse.jface.text.IAutoEditStrategy;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.IInformationControl;
+import org.eclipse.jface.text.IInformationControlCreator;
+import org.eclipse.jface.text.IRegion;
+import org.eclipse.jface.text.ITextDoubleClickStrategy;
+import org.eclipse.jface.text.ITextHover;
+import org.eclipse.jface.text.ITextViewer;
+import org.eclipse.jface.text.IUndoManager;
+import org.eclipse.jface.text.Position;
+import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
 import org.eclipse.jface.text.contentassist.IContentAssistant;
 import org.eclipse.jface.text.formatter.ContentFormatter;
@@ -44,8 +56,6 @@ import io.usethesource.impulse.editor.internal.QuickFixController;
 import io.usethesource.impulse.parser.IParseController;
 import io.usethesource.impulse.parser.ISourcePositionLocator;
 import io.usethesource.impulse.preferences.IPreferencesService;
-import io.usethesource.impulse.preferences.PreferenceCache;
-import io.usethesource.impulse.preferences.PreferenceConstants;
 import io.usethesource.impulse.runtime.RuntimePlugin;
 import io.usethesource.impulse.services.IDocumentationProvider;
 import io.usethesource.impulse.services.base.DefaultAnnotationHover;
@@ -84,12 +94,6 @@ public class StructuredSourceViewerConfiguration extends TextSourceViewerConfigu
             fLangSpecificPrefs= fEditor.getLanguageSpecificPreferences();
         }
         return fLangSpecificPrefs;
-    }
-
-    public int getTabWidth(ISourceViewer sourceViewer) {
-        boolean langSpecificSetting= getLangSpecificPrefs() != null && getLangSpecificPrefs().isDefined(PreferenceConstants.P_TAB_WIDTH);
-
-        return langSpecificSetting ? getLangSpecificPrefs().getIntPreference(PreferenceConstants.P_TAB_WIDTH) : PreferenceCache.tabWidth;
     }
 
     public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer) {

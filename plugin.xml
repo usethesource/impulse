@@ -46,11 +46,6 @@
       </editor>
    </extension>
    <extension
-         id="io.usethesource.impulse.startup"
-         name="Impulse Runtime Startup"
-         point="org.eclipse.ui.startup">
-   </extension>
-   <extension
          point="org.eclipse.ui.editorActions">
       <editorContribution
        	  targetID="impulse.impEditor"
