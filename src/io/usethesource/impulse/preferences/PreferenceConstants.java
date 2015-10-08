@@ -28,41 +28,6 @@ public class PreferenceConstants {
     public static final String P_EMIT_MESSAGES= "emitMessages";
 
     /**
-     * A named preference that controls the width of a tab in spaces in the source editor.
-     * Language-specific settings are supported for this preference.
-     * <p>
-     * Value is of type <code>Integer</code>.
-     * </p>
-     */
-    public static final String P_TAB_WIDTH= "tabWidth";
-
-    /**
-     * A named preference that controls whether the editor should substitute spaces for tabs.
-     * Can be overridden by a language-specific preference of the same key.
-     * <p>
-     * Value is of type <code>Boolean</code>.
-     * </p>
-     */
-    public static final String P_SPACES_FOR_TABS= "spacesForTabs";
-
-    /**
-     * A named preference that controls the font to use in the source editor.
-     * <p>
-     * Value is of type <code>FontData</code>.
-     * </p>
-     */
-    public static final String P_SOURCE_FONT= "sourceFont";
-
-    /**
-     * A named preference that controls whether to dump tokens to a console when parsing fails. For
-     * diagnostic purposes.
-     * <p>
-     * Value is of type <code>Boolean</code>.
-     * </p>
-     */
-    public static final String P_DUMP_TOKENS= "dumpTokens";
-
-    /**
      * A named preference that controls whether the project explorer's selection is linked to the active editor.
      * <p>
      * Value is of type <code>Boolean</code>.
@@ -89,14 +54,6 @@ public class PreferenceConstants {
      * @see org.eclipse.jface.preference.PreferenceConverter
      */
     public static final String EDITOR_MATCHING_BRACKETS_COLOR=  "matchingBracketsColor"; //$NON-NLS-1$
-
-    /**
-     * A named preference that controls whether "fences" (e.g. parens or braces) are automatically closed.
-     * <p>
-     * Value is of type <code>Boolean</code>.
-     * </p>
-     */
-    public static final String EDITOR_CLOSE_FENCES= "closeFences"; //$NON-NLS-1$
 
     /**
      * A named preference that controls whether builders should emit diagnostics. Can be overridden

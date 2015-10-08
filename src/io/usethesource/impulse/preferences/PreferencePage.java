@@ -27,13 +27,9 @@ public class PreferencePage extends FieldEditorPreferencePage implements IWorkbe
     }
 
     public void createFieldEditors() {
-        final BooleanFieldEditor emitMessagesField= new BooleanFieldEditor(PreferenceConstants.P_EMIT_MESSAGES, "E&mit diagnostic messages from IMP UI",
+        final BooleanFieldEditor emitMessagesField= new BooleanFieldEditor(PreferenceConstants.P_EMIT_MESSAGES, "E&mit diagnostic messages from Impulse UI",
                 getFieldEditorParent());
         addField(emitMessagesField);
-
-        final BooleanFieldEditor dumpTokensField= new BooleanFieldEditor(PreferenceConstants.P_DUMP_TOKENS, "&Dump tokens after scanning",
-                getFieldEditorParent());
-        addField(dumpTokensField);
 
         final BooleanFieldEditor emitBuilderDiagnosticsField= new BooleanFieldEditor(PreferenceConstants.P_EMIT_BUILDER_DIAGNOSTICS, "Emit diagnostic messages while building",
                 getFieldEditorParent());
