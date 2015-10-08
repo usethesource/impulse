@@ -34,7 +34,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
     public void initializeDefaultPreferences() {
         if (Display.getCurrent() == null) {
         	// This isn't the UI thread, so schedule a job to do the initialization later.
-        	UIJob job= new UIJob("IMP Preference Initializer") {
+        	UIJob job= new UIJob("Impulse Preference Initializer") {
 				@Override
 				public IStatus runInUIThread(IProgressMonitor monitor) {
 					if (Display.getCurrent() != null) { // this should never be false, but let's be safe

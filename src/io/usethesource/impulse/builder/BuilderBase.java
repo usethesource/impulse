@@ -54,7 +54,7 @@ public abstract class BuilderBase extends IncrementalProjectBuilder {
      * The name of the console used for any builders that don't provide an override
      * of getConsoleName() to use their own unique console
      */
-    public static final String IMP_BUILDER_CONSOLE= "IMP Builders";
+    public static final String IMP_BUILDER_CONSOLE= "Impulse Builders";
 
     /**
      * @return the plugin associated with this builder instance
