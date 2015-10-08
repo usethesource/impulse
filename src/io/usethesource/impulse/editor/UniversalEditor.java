@@ -924,9 +924,10 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
     private void installExternalEditorServices() {
         Set<IModelListener> editorServices= fLanguageServiceManager.getEditorServices();
 
-        for(ILanguageService editorService : editorServices) {
-            if (editorService instanceof IEditorService)
+        for (ILanguageService editorService : editorServices) {
+            if (editorService instanceof IEditorService) {
                 ((IEditorService) editorService).setEditor(this);
+            }
             fParserScheduler.addModelListener((IModelListener) editorService);
         }
     }
