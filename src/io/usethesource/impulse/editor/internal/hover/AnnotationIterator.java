@@ -25,10 +25,9 @@ import io.usethesource.impulse.editor.quickfix.IAnnotation;
 /**
  * Filters problems based on their types.
  */
-@SuppressWarnings({"unchecked"})
-public class AnnotationIterator implements Iterator {
+public class AnnotationIterator implements Iterator<Annotation> {
 
-	private Iterator fIterator;
+	private Iterator<Annotation> fIterator;
 	private Annotation fNext;
 	private boolean fReturnAllAnnotations;
 
@@ -38,7 +37,7 @@ public class AnnotationIterator implements Iterator {
 	 * @param parent the parent iterator to iterate over annotations
 	 * @param returnAllAnnotations whether to return all annotations or just problem annotations
 	 */
-	public AnnotationIterator(Iterator parent, boolean returnAllAnnotations) {
+	public AnnotationIterator(Iterator<Annotation> parent, boolean returnAllAnnotations) {
 		fReturnAllAnnotations= returnAllAnnotations;
 		fIterator= parent;
 		skip();
@@ -79,7 +78,7 @@ public class AnnotationIterator implements Iterator {
 	/*
 	 * @see Iterator#next()
 	 */
-	public Object next() {
+	public Annotation next() {
 		try {
 			return fNext;
 		} finally {

@@ -10,8 +10,6 @@
  *******************************************************************************/
 package io.usethesource.impulse.ui.textPresentation;
 
-
-
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Iterator;
@@ -28,8 +26,6 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Display;
 
 import io.usethesource.impulse.runtime.RuntimePlugin;
-
-
 
 public class HTMLTextPresenter implements DefaultInformationControl.IInformationPresenter, DefaultInformationControl.IInformationPresenterExtension {
 
@@ -66,7 +62,7 @@ public class HTMLTextPresenter implements DefaultInformationControl.IInformation
 		int yoursEnd=   offset + insertLength -1;
 		yoursEnd= Math.max(yoursStart, yoursEnd);
 
-		Iterator e= presentation.getAllStyleRangeIterator();
+		Iterator<?> e= presentation.getAllStyleRangeIterator();
 		while (e.hasNext()) {
 
 			StyleRange range= (StyleRange) e.next();

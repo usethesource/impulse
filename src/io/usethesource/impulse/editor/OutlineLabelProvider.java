@@ -88,14 +88,9 @@ public class OutlineLabelProvider implements ILabelProvider, IColorProvider, ILa
 	return result;
     }
 
-    private long getTextFlags(Object element) {
-	// TODO Auto-generated method stub
-	return 0;
-    }
-
     private long getImageFlags(Object element) {
-	// TODO Auto-generated method stub
-	return 0;
+    	// TODO Auto-generated method stub
+    	return 0;
     }
 
     protected String decorateText(String text, Object element) {

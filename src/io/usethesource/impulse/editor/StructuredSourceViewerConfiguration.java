@@ -203,7 +203,8 @@ public class StructuredSourceViewerConfiguration extends TextSourceViewerConfigu
                 private List<Annotation> getParserAnnotationsAtOffset(int offset) {
                     List<Annotation> result= new LinkedList<Annotation>();
                     if (fAnnotationModel != null) {
-                        for(Iterator<Annotation> iter= fAnnotationModel.getAnnotationIterator(); iter.hasNext(); ) {
+                        for(@SuppressWarnings("unchecked")
+						Iterator<Annotation> iter= fAnnotationModel.getAnnotationIterator(); iter.hasNext(); ) {
                             Annotation ann= iter.next();
 
                             if (fAnnotationModel.getPosition(ann).includes(offset) && UniversalEditor.isParseAnnotation(ann)) {

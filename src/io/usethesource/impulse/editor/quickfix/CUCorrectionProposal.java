@@ -56,6 +56,7 @@ import io.usethesource.impulse.model.ICompilationUnit;
  * 
  * @since 3.2
  */
+@SuppressWarnings("restriction")
 public class CUCorrectionProposal extends ChangeCorrectionProposal {
 
 	private ICompilationUnit fCompilationUnit;

@@ -104,7 +104,7 @@ public interface IASTAdapter extends IASTMatchAdapter {
      * @param attribs map from attribute names to attribute values
      * @return newly-constructed AST node
      */
-    public Object construct(String qualName, Object[] children, Map/*<String,Object>*/ attribs) throws IllegalArgumentException;
+    public Object construct(String qualName, Object[] children, Map<String,Object> attribs) throws IllegalArgumentException;
 
     /**
      * Finds the previous match using the given Matcher occurring before the given offset.<br>

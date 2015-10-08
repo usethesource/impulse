@@ -12,10 +12,6 @@
 
 package io.usethesource.impulse.editor;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
@@ -41,8 +37,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.Widget;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 
 import io.usethesource.impulse.editor.OutlineLabelProvider.IElementImageProvider;
@@ -60,7 +54,6 @@ public class OutlineInformationControl extends AbstractInformationControl {
     protected Color fForegroundColor;
     //    private boolean fShowOnlyMainType; // RMF what would this mean in general?
     private LexicalSortingAction fLexicalSortingAction;
-    Map fTypeHierarchies= new HashMap();
 
     private Language fLanguage;
 
@@ -364,20 +357,9 @@ public class OutlineInformationControl extends AbstractInformationControl {
      */
     protected void fillViewMenu(IMenuManager viewMenu) {
         super.fillViewMenu(viewMenu);
-        //	viewMenu.add(fShowOnlyMainTypeAction); //$NON-NLS-1$
         viewMenu.add(new Separator("Sorters")); //$NON-NLS-1$
-        if (fLexicalSortingAction != null)
+        if (fLexicalSortingAction != null) {
             viewMenu.add(fLexicalSortingAction);
-        //	viewMenu.add(fSortByDefiningTypeAction);
-    }
-
-    private IProgressMonitor getProgressMonitor() {
-        IWorkbenchPage wbPage= RuntimePlugin.getInstance().getWorkbench().getActiveWorkbenchWindow().getActivePage();
-        if (wbPage == null)
-            return null;
-        IEditorPart editor= wbPage.getActiveEditor();
-        if (editor == null)
-            return null;
-        return editor.getEditorSite().getActionBars().getStatusLineManager().getProgressMonitor();
+        }
     }
 }

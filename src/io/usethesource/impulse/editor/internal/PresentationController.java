@@ -188,7 +188,7 @@ public class PresentationController implements IModelListener {
             ISourcePositionLocator locator) {
         int prevOffset= -1;
         int prevEnd= -1;
-        Iterator tokenIterator= parseController.getTokenIterator(damage);
+        Iterator<Object> tokenIterator= parseController.getTokenIterator(damage);
         if (tokenIterator == null) {
             return;
         }
@@ -269,15 +269,12 @@ public class PresentationController implements IModelListener {
         if (checkPresentation(presentation, docLen)) {
             return presentation;
         }
-        int lastStart = presentation.getLastStyleRange().start;
-        int lastLength = presentation.getLastStyleRange().length;
-        int end = lastStart + lastLength;
 
         List<StyleRange> newRanges= new ArrayList<StyleRange>(presentation.getDenumerableRanges());
 
         // Phase 1: Collect all ranges in a sortable data structure and trim each one
         // to ensure it lies within the document bounds.
-        Iterator presIt = presentation.getAllStyleRangeIterator();
+        Iterator<?> presIt = presentation.getAllStyleRangeIterator();
         while (presIt.hasNext()) {
             StyleRange nextRange = (StyleRange) presIt.next();
             if (nextRange.start < docLen) {
@@ -328,11 +325,11 @@ public class PresentationController implements IModelListener {
      * necessitate a fixing pass over the StyleRanges.
      */
     private boolean checkPresentation(TextPresentation presentation, int docLen) {
-        Iterator<StyleRange> presIt = presentation.getAllStyleRangeIterator();
+        Iterator<?> presIt = presentation.getAllStyleRangeIterator();
         int end= -1;
 
         while (presIt.hasNext()) {
-            StyleRange r= presIt.next();
+            StyleRange r= (StyleRange) presIt.next();
             int rangeStart= r.start;
             int rangeLen= r.length;
             if (rangeStart < end) {
@@ -361,7 +358,7 @@ public class PresentationController implements IModelListener {
         // - negative length in a style range
         // - overlapping ranges
         // - range extends beyond last character in file
-        Iterator<StyleRange> ranges = presentation.getAllStyleRangeIterator();
+        Iterator<?> ranges = presentation.getAllStyleRangeIterator();
         List<StyleRange> rangesList = new ArrayList<StyleRange>();
         while (ranges.hasNext()) {
         	rangesList.add((StyleRange) ranges.next());

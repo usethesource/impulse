@@ -473,12 +473,7 @@ public interface IPreferencesService {
 	public void removeProjectSelectionListener(IProjectSelectionListener listener);
 	
 	
-	public final class ProjectSelectionEvent {	//extends EventObject {
-		/**
-		 * All serializable objects should have a stable serialVersionUID
-		 */
-		private static final long serialVersionUID = 1L;
-
+	public final class ProjectSelectionEvent {	
 		private Preferences previous;
 		private Preferences neww;
 

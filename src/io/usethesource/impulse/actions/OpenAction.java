@@ -121,11 +121,10 @@ public class OpenAction extends SelectionDispatchAction {
         setEnabled(checkEnabled(selection));
     }
 
-    @SuppressWarnings("unchecked")
 	private boolean checkEnabled(IStructuredSelection selection) {
         if (selection.isEmpty())
             return false;
-        for(Iterator iter= selection.iterator(); iter.hasNext(); ) {
+        for(Iterator<?> iter= selection.iterator(); iter.hasNext(); ) {
             Object element= iter.next();
             if (element instanceof ISourceEntity)
                 continue;

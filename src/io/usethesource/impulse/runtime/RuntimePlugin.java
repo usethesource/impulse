@@ -34,19 +34,20 @@ import io.usethesource.impulse.utils.ConsoleUtil;
 /**
  * The bundle activator class for the IMP runtime.
  */
-@SuppressWarnings("restriction")
 public class RuntimePlugin extends PluginBase implements IStartup {
     /**
      * An IAdapterFactory implementation that adapts IResources to ISourceEntity's.
      * @author rfuhrer@watson.ibm.com
      */
     private static final class ResourceToSourceEntityAdapter implements IAdapterFactory {
-        private Class[] fTypes= new Class[] { ISourceEntity.class };
+		private Class<?>[] fTypes= new Class[] { ISourceEntity.class };
 
-        public Object getAdapter(Object adaptableObject, Class adapterType) {
+        @SuppressWarnings("unchecked")
+		@Override
+        public <T> T getAdapter(Object adaptableObject, Class<T> adapterType) {
             if (adaptableObject instanceof IResource && adapterType == ISourceEntity.class) {
                 try {
-                    return ModelFactory.open((IResource) adaptableObject);
+                    return (T) ModelFactory.open((IResource) adaptableObject);
                 } catch (ModelException e) {
                     RuntimePlugin.getInstance().logException("Unable to adapt " + adaptableObject.getClass().getName() + " to " + adapterType.getName(), e);
                 }
@@ -54,7 +55,8 @@ public class RuntimePlugin extends PluginBase implements IStartup {
             return null;
         }
 
-        public Class[] getAdapterList() {
+        @Override
+        public Class<?>[] getAdapterList() {
             return fTypes;
         }
     }

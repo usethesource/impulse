@@ -139,23 +139,21 @@ public abstract class PreferencesTab
 	 */
 
 
-	public HashMap errorMessages = new HashMap();
+	public HashMap<Object, String> errorMessages = new HashMap<>();
 	
 
 	public void clearErrorMessages(Object key) {
-		String currentMessage = (String) errorMessages.get(key);
-//		System.out.println("Tab = " + tabItem.getText() + ", field = " + ((FieldEditor)key).getPreferenceName() + ":  clearErrorMessages(), clearing message = " + currentMessage);
 		errorMessages.remove(key);
-		if (fPrefPage == null) return;
+		if (fPrefPage == null) {
+			return;
+		}
 		if (errorMessages.size() == 0) {
-//			System.out.println("Tab = " + tabItem.getText() + ", field = " + ((FieldEditor)key).getPreferenceName() + ":  clearErrorMessages(), setting message to null");
 			fPrefPage.setErrorMessage(null);	// to clear
 			return;
 		}
-		Iterator it = errorMessages.keySet().iterator();
+		Iterator<Object> it = errorMessages.keySet().iterator();
 		Object nextKey = it.next();
 		String nextMessage = (String) errorMessages.get(nextKey);
-//		System.out.println("Tab = " + tabItem.getText() + ", field = " + ((FieldEditor)key).getPreferenceName() + "clearErrorMessages(), setting message to:  " + nextMessage);
 		fPrefPage.setErrorMessage(nextMessage);
 	}
 	
@@ -195,11 +193,9 @@ public abstract class PreferencesTab
 	 */
 	public class TabSelectionListener implements SelectionListener
 	{
-		private PreferencePage page = null;
 		private TabItem item = null;
 		
 		public TabSelectionListener(PreferencePage page, TabItem item) {
-			this.page = page;
 			this.item = item;
 		}
 		
@@ -211,9 +207,9 @@ public abstract class PreferencesTab
 				return;
 			}
 			
-			Iterator it = errorMessages.keySet().iterator();
+			Iterator<Object> it = errorMessages.keySet().iterator();
 			Object nextKey = it.next();
-			String nextMessage = (String) errorMessages.get(nextKey);
+			String nextMessage = errorMessages.get(nextKey);
 			fPrefPage.setErrorMessage(nextMessage);
 		}
 		

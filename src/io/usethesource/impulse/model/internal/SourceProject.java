@@ -59,9 +59,8 @@ public class SourceProject implements ISourceProject {
     public SourceProject(IProject project) {
         fProject= project;
 
-        if (!readMetaData()) {
-//            initializeFromJavaProject();
-        }
+        // TODO: review if this has an effect at all
+        readMetaData();
     }
 
     public void setBuildPath(List<IPathEntry> buildPath) {
@@ -272,7 +271,7 @@ public class SourceProject implements ISourceProject {
         return ModelFactory.getModelRoot();
     }
 
-    public ISourceEntity getAncestor(Class ofType) {
+    public ISourceEntity getAncestor(Class<?> ofType) {
         if (ofType == ISourceProject.class) {
             return this;
         } else if (ofType == IWorkspaceModel.class) {

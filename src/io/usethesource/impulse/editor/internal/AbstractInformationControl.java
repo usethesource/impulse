@@ -25,7 +25,6 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.jface.bindings.keys.KeySequence;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.text.IInformationControl;
@@ -153,15 +152,6 @@ public abstract class AbstractInformationControl implements IInformationControl,
 	    fBorderSize= borderSize;
 	}
 
-	/**
-	 * Returns the border size.
-	 *
-	 * @return the border size
-	 */
-	public int getBorderSize() {
-	    return fBorderSize;
-	}
-
 	/*
 	 * @see org.eclipse.swt.widgets.Layout#computeSize(org.eclipse.swt.widgets.Composite, int, int, boolean)
 	 */
@@ -282,7 +272,6 @@ public abstract class AbstractInformationControl implements IInformationControl,
     private Command fInvokingCommand;
     private Label fStatusField;
     private Font fStatusTextFont;
-    private KeySequence[] fInvokingCommandKeySequences;
     /**
      * Remembers the bounds for this information control.
      * @since 3.0
@@ -595,10 +584,8 @@ public abstract class AbstractInformationControl implements IInformationControl,
     }
 
     private class ExecutionListener implements IExecutionListener {
-	private final String fCommandDefID;
 	private final IAction fAction;
 	public ExecutionListener(String cmdDefID, IAction action) {
-	    fCommandDefID= cmdDefID;
 	    fAction= action;
 	}
 	public void notHandled(String commandId, NotHandledException exception) { }

@@ -98,7 +98,7 @@ public interface IParseController extends ILanguageService {
      * the given region, including any tokens that are only partially
      * contained
      */
-    Iterator getTokenIterator(IRegion region);
+    Iterator<Object> getTokenIterator(IRegion region);
 
     /**
      * @return an ISourcePositionLocator that can be used to correlate

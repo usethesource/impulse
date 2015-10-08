@@ -126,10 +126,7 @@ public class FoldingActionGroup extends ActionGroup {
         
         fRestoreDefaults= new FoldingAction(FoldingMessages.getResourceBundle(), "Projection.Restore.") { //$NON-NLS-1$
             public void run() {
-                if (editor instanceof UniversalEditor) {
-                    UniversalEditor univEditor= (UniversalEditor) editor;
-//                  javaEditor.resetProjection();
-                }
+            	// TODO Need more API on UniversalEditor in order to enable this effect
             }
         };
         fRestoreDefaults.setActionDefinitionId(IFoldingCommandIds.FOLDING_RESTORE);
@@ -137,11 +134,7 @@ public class FoldingActionGroup extends ActionGroup {
         
         fCollapseMembers= new FoldingAction(FoldingMessages.getResourceBundle(), "Projection.CollapseMembers.") { //$NON-NLS-1$
             public void run() {
-                if (editor instanceof UniversalEditor) {
-                    UniversalEditor univEditor= (UniversalEditor) editor;
-                    // TODO Need more API on UniversalEditor in order to enable the following
-//                  univEditor.collapseMembers();
-                }
+            	// TODO Need more API on UniversalEditor in order to enable this effect
             }
         };
         fCollapseMembers.setActionDefinitionId(IEditorActionDefinitionIds.FOLDING_COLLAPSE_MEMBERS);
@@ -149,11 +142,7 @@ public class FoldingActionGroup extends ActionGroup {
         
         fCollapseComments= new FoldingAction(FoldingMessages.getResourceBundle(), "Projection.CollapseComments.") { //$NON-NLS-1$
             public void run() {
-                if (editor instanceof UniversalEditor) {
-                    UniversalEditor univEditor= (UniversalEditor) editor;
-                    // TODO Need more API on UniversalEditor in order to enable the following
-//                  javaEditor.collapseComments();
-                }
+            	// TODO Need more API on UniversalEditor in order to enable the following
             }
         };
         fCollapseComments.setActionDefinitionId(IEditorActionDefinitionIds.FOLDING_COLLAPSE_COMMENTS);

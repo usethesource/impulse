@@ -33,7 +33,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
@@ -186,8 +185,7 @@ public abstract class BuilderBase extends IncrementalProjectBuilder {
         return new DependencyInfo(project);
     }
 
-    @SuppressWarnings("unchecked")
-    protected IProject[] build(int kind, Map args, IProgressMonitor monitor) {
+    protected IProject[] build(int kind, Map<String,String> args, IProgressMonitor monitor) {
         if (getPreferencesService().getProject() == null) {
             getPreferencesService().setProject(getProject());
         }

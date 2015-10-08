@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import org.eclipse.core.runtime.CoreException;
@@ -103,18 +102,16 @@ class ZipStorageEditorDocumentProvider extends StorageDocumentProvider {
 
     private String getZipEntryContents(IURIEditorInput uriEditorInput) throws CoreException {
         String contents= "";
-        try {
-            URI uri= uriEditorInput.getURI();
-            String path= uri.getPath();
-            int lastColonIdx = path.lastIndexOf(':');
-			String jarPath= path.substring(0, lastColonIdx);
-            String entryPath= path.substring(lastColonIdx + 1);
-
-            ZipFile zipFile= new ZipFile(new File(jarPath));
-            ZipEntry entry= zipFile.getEntry(entryPath);
-            InputStream is= zipFile.getInputStream(entry);
-
-            contents= StreamUtils.readStreamContents(is);
+        URI uri= uriEditorInput.getURI();
+        String path= uri.getPath();
+        int lastColonIdx = path.lastIndexOf(':');
+		String jarPath= path.substring(0, lastColonIdx);
+        String entryPath= path.substring(lastColonIdx + 1);
+        
+        try (ZipFile zipFile= new ZipFile(new File(jarPath))) {
+            try (InputStream is= zipFile.getInputStream(zipFile.getEntry(entryPath))) {
+            	contents = StreamUtils.readStreamContents(is);
+            }
         } catch (IOException e) {
             throw new CoreException(new Status(IStatus.ERROR, RuntimePlugin.IMP_RUNTIME, 0, "Error encountered while obtaining zip file contents", e));
         } catch (Exception e) {

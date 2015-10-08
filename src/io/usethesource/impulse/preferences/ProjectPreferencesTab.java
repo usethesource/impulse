@@ -130,7 +130,7 @@ public abstract class ProjectPreferencesTab extends PreferencesTab {
             }
 		});
 		projCombo.setSize(150, 24);
-		Label pad = new Label(groupHolder, SWT.NONE);
+		new Label(groupHolder, SWT.NONE);
 
 		// Clear these here in case there are any saved from a previous interaction with the page
 		// (assuming that we should start each  new page with no project selected)
@@ -187,7 +187,6 @@ public abstract class ProjectPreferencesTab extends PreferencesTab {
 	private class ProjectSelectionListener implements PreferencesService.IProjectSelectionListener
 	{
 		Composite composite = null;
-		IEclipsePreferences.IPreferenceChangeListener currentListener = null;
 
 		ProjectSelectionListener(Composite composite) {
 			this.composite = composite;

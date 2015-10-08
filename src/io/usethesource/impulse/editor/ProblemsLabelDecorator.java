@@ -11,16 +11,12 @@
 
 package io.usethesource.impulse.editor;
 
-import java.util.Iterator;
-
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.text.source.Annotation;
-import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILabelDecorator;
@@ -29,11 +25,9 @@ import org.eclipse.jface.viewers.LabelProviderChangedEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.ui.texteditor.MarkerAnnotation;
 
 import io.usethesource.impulse.editor.internal.ImageDecoratorController;
 import io.usethesource.impulse.language.Language;
-import io.usethesource.impulse.language.ServiceFactory;
 import io.usethesource.impulse.model.ICompilationUnit;
 import io.usethesource.impulse.model.ISourceEntity;
 import io.usethesource.impulse.runtime.ImageDescriptorRegistry;
@@ -173,91 +167,18 @@ public class ProblemsLabelDecorator implements ILabelDecorator {
         int info= 0;
         IMarker[] markers= res.findMarkers(IMarker.PROBLEM, true, depth);
         if (markers != null) {
-            for(int i= 0; i < markers.length && (info != ERRORTICK_ERROR); i++) {
-                IMarker curr= markers[i];
-//              if (sourceElement == null || isMarkerInRange(curr, sourceElement)) {
-                    int priority= curr.getAttribute(IMarker.SEVERITY, -1);
-                    if (priority == IMarker.SEVERITY_WARNING) {
-                        info= ERRORTICK_WARNING;
-                    } else if (priority == IMarker.SEVERITY_ERROR) {
-                        info= ERRORTICK_ERROR;
-                    }
-//              }
-            }
+        	for(int i= 0; i < markers.length && (info != ERRORTICK_ERROR); i++) {
+        		IMarker curr= markers[i];
+        		int priority= curr.getAttribute(IMarker.SEVERITY, -1);
+        		if (priority == IMarker.SEVERITY_WARNING) {
+        			info= ERRORTICK_WARNING;
+        		} else if (priority == IMarker.SEVERITY_ERROR) {
+        			info= ERRORTICK_ERROR;
+        		}
+        	}
         }
         return info;
     }
-
-//    private boolean isMarkerInRange(IMarker marker, ISourceReference sourceElement) throws CoreException {
-//        if (marker.isSubtypeOf(IMarker.TEXT)) {
-//            int pos= marker.getAttribute(IMarker.CHAR_START, -1);
-//            return isInside(pos, sourceElement);
-//        }
-//        return false;
-//    }
-
-//    private IAnnotationModel isInJavaAnnotationModel(ICompilationUnit original) {
-//        if (original.isWorkingCopy()) {
-//            FileEditorInput editorInput= new FileEditorInput((IFile) original.getResource());
-//            return JavaPlugin.getDefault().getCompilationUnitDocumentProvider().getAnnotationModel(editorInput);
-//        }
-//        return null;
-//    }
-
-    private int getErrorTicksFromAnnotationModel(IAnnotationModel model /*, ISourceReference sourceElement*/) throws CoreException {
-        int info= 0;
-        Iterator iter= model.getAnnotationIterator();
-        while ((info != ERRORTICK_ERROR) && iter.hasNext()) {
-            Annotation annot= (Annotation) iter.next();
-            IMarker marker= isAnnotationInRange(model, annot /*, sourceElement */);
-            if (marker != null) {
-                int priority= marker.getAttribute(IMarker.SEVERITY, -1);
-                if (priority == IMarker.SEVERITY_WARNING) {
-                    info= ERRORTICK_WARNING;
-                } else if (priority == IMarker.SEVERITY_ERROR) {
-                    info= ERRORTICK_ERROR;
-                }
-            }
-        }
-        return info;
-    }
-
-    private IMarker isAnnotationInRange(IAnnotationModel model, Annotation annot /*, ISourceReference sourceElement */) throws CoreException {
-        if (annot instanceof MarkerAnnotation) {
-//          if (sourceElement == null || isInside(model.getPosition(annot), sourceElement)) {
-                IMarker marker= ((MarkerAnnotation) annot).getMarker();
-                if (marker.exists() && marker.isSubtypeOf(IMarker.PROBLEM)) {
-                    return marker;
-                }
-//          }
-        }
-        return null;
-    }
-
-//    private boolean isInside(Position pos, ISourceReference sourceElement) throws CoreException {
-//        return pos != null && isInside(pos.getOffset(), sourceElement);
-//    }
-
-//    /**
-//     * Tests if a position is inside the source range of an element.
-//     * @param pos Position to be tested.
-//     * @param sourceElement Source element (must be a IJavaElement)
-//     * @return boolean Return <code>true</code> if position is located inside the source element.
-//     * @throws CoreException Exception thrown if element range could not be accessed.
-//     * 
-//     * @since 2.1
-//     */
-//    protected boolean isInside(int pos, ISourceReference sourceElement) throws CoreException {
-//        if (fCachedRange == null) {
-//            fCachedRange= sourceElement.getSourceRange();
-//        }
-//        ISourceRange range= fCachedRange;
-//        if (range != null) {
-//            int rangeOffset= range.getOffset();
-//            return (rangeOffset <= pos && rangeOffset + range.getLength() > pos);
-//        }
-//        return false;
-//    }
 
     /* (non-Javadoc)
      * @see IBaseLabelProvider#dispose()

@@ -24,7 +24,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.FontData;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -1677,8 +1676,6 @@ public class PreferencesUtilities {
             Dialog.applyDialogFont(defaultsButton);
             //GridData 
             GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-            Point minButtonSize = defaultsButton.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
-            //data.widthHint = Math.max(widthHint, minButtonSize.x);
             defaultsButton.setLayoutData(data);
             defaultsButton.addSelectionListener(new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent e) {
@@ -1690,8 +1687,6 @@ public class PreferencesUtilities {
             applyButton.setText(labels[1]);
             Dialog.applyDialogFont(applyButton);
             data = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-            minButtonSize = applyButton.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
-            //data.widthHint = Math.max(widthHint, minButtonSize.x);
             applyButton.setLayoutData(data);
             applyButton.addSelectionListener(new SelectionAdapter() {
                 public void widgetSelected(SelectionEvent e) {

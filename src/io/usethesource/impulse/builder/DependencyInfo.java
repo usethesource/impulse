@@ -109,7 +109,7 @@ public class DependencyInfo {
      * @return a Set of dependent workspace--relative unit paths
      */
     public Set<String /*path*/> getDependentsOf(String unitPath) {
-        return (Set) fIsDependedUponBy.get(unitPath);
+        return fIsDependedUponBy.get(unitPath);
     }
 
     public void dump() {
@@ -122,7 +122,7 @@ public class DependencyInfo {
         sb.append("*** Dependencies ***:\n");
         for(Iterator<String> iter= fDependsUpon.keySet().iterator(); iter.hasNext(); ) {
             String unit= iter.next();
-            Set<String /*path*/> dependents= (Set) fDependsUpon.get(unit);
+            Set<String /*path*/> dependents= fDependsUpon.get(unit);
     
             sb.append("Unit " + unit + ": \n");
             for(Iterator<String> iterator= dependents.iterator(); iterator.hasNext(); ) {

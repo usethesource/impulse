@@ -95,15 +95,17 @@ public class CompilationUnitRef implements ICompilationUnit {
         }
     }
 
-    @SuppressWarnings("unchecked")
-	public ISourceEntity getAncestor(Class ofType) {
+	public ISourceEntity getAncestor(Class<?> ofType) {
         if (ofType == ICompilationUnit.class) {
             return this;
-        } else if (ofType == ISourceProject.class) {
+        } 
+        else if (ofType == ISourceProject.class) {
             return fProject;
-        } else if (ofType == IWorkspaceModel.class) {
+        } 
+        else if (ofType == IWorkspaceModel.class) {
             return ModelFactory.getModelRoot();
-        } else if (ofType == ISourceFolder.class) {
+        } 
+        else if (ofType == ISourceFolder.class) {
             return getParent();
         }
         return null;

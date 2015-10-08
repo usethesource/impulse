@@ -33,8 +33,6 @@ import io.usethesource.impulse.runtime.RuntimePlugin;
 import io.usethesource.impulse.services.IHelpService;
 
 public class IMPHelp {
-    private final static Object[] NO_ELEMENTS= new Object[0];
-
     public static void setHelp(LanguageServiceManager svcMgr, StructuredViewer viewer, String contextId) {
         IMPViewerHelpListener listener= new IMPViewerHelpListener(svcMgr, viewer, contextId);
         viewer.getControl().addHelpListener(listener);

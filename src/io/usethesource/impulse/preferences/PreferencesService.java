@@ -1555,7 +1555,6 @@ public class PreferencesService implements IPreferencesService {
 	protected void fireProjectSelectionEvent(final ProjectSelectionEvent event) {
 		if (projectSelectionListeners == null || projectSelectionListeners.size() == 0)
 			return;
-		//Object[] listeners = projectSelectionListeners.toArray();
 		for (int i = 0; i < projectSelectionListeners.size(); i++) {
 			final IProjectSelectionListener listener = projectSelectionListeners.get(i);
 			ISafeRunnable job = new ISafeRunnable() {
@@ -1566,6 +1565,7 @@ public class PreferencesService implements IPreferencesService {
 					listener.selection(event);
 				}
 			};
+			
 			Platform.run(job);
 		}
 	}

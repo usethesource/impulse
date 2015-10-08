@@ -59,7 +59,7 @@ public class Indexer {
     /**
      * The set of index entries for the current project being indexed
      */
-    private Set/*<IndexEntry>*/ fProjectEntries= new HashSet();
+    private Set<IndexEntry> fProjectEntries= new HashSet<>();
 
     /**
      * Creates an index for the shared elements in this language
@@ -172,9 +172,8 @@ public class Indexer {
             File file= getPersistentIndexFile(project);
             FileWriter writer= new FileWriter(file);
 
-            for(Iterator iter= fProjectEntries.iterator(); iter.hasNext(); ) {
-                IndexEntry entry= (IndexEntry) iter.next();
-
+            for(Iterator<IndexEntry> iter= fProjectEntries.iterator(); iter.hasNext(); ) {
+                IndexEntry entry = iter.next();
                 entry.saveToStream(writer);
             }
         } catch (IOException e) {

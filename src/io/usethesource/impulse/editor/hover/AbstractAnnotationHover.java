@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.text.AbstractInformationControl;
 import org.eclipse.jface.text.AbstractReusableInformationControlCreator;
@@ -600,7 +599,6 @@ public abstract class AbstractAnnotationHover extends AbstractTextHover {
 		}
 	}
 
-	private final IPreferenceStore fStore= RuntimePlugin.getInstance().getPreferenceStore();
 	private final DefaultMarkerAnnotationAccess fAnnotationAccess= new DefaultMarkerAnnotationAccess();
 	private final boolean fAllAnnotations;
 
@@ -633,7 +631,7 @@ public abstract class AbstractAnnotationHover extends AbstractTextHover {
 	 * @see org.eclipse.jdt.internal.ui.text.java.hover.AbstractJavaEditorTextHover#getHoverInfo2(org.eclipse.jface.text.ITextViewer, org.eclipse.jface.text.IRegion)
 	 * @since 3.4
 	 */
-	@SuppressWarnings({"unchecked"})
+	@SuppressWarnings("unchecked")
 	public Object getHoverInfo2(ITextViewer textViewer, IRegion hoverRegion) {
 		IPath path;
 		IAnnotationModel model;
@@ -649,23 +647,18 @@ public abstract class AbstractAnnotationHover extends AbstractTextHover {
 			return null;
 
 		try {
-			Iterator parent;
+			Iterator<Annotation> parent;
 			if (model instanceof IAnnotationModelExtension2)
 				parent= ((IAnnotationModelExtension2)model).getAnnotationIterator(hoverRegion.getOffset(), hoverRegion.getLength(), true, true);
 			else
 				parent= model.getAnnotationIterator();
-			Iterator e= new AnnotationIterator(parent, fAllAnnotations);
+			Iterator<Annotation> e= new AnnotationIterator(parent, fAllAnnotations);
 
 			int layer= -1;
 			Annotation annotation= null;
 			Position position= null;
 			while (e.hasNext()) {
 				Annotation a= (Annotation) e.next();
-
-				AnnotationPreference preference= getAnnotationPreference(a);
-//				if (preference == null || !(preference.getTextPreferenceKey() != null && fStore.getBoolean(preference.getTextPreferenceKey()) || (preference.getHighlightPreferenceKey() != null && fStore.getBoolean(preference.getHighlightPreferenceKey()))))
-//					continue;
-
 				Position p= model.getPosition(a);
 
 				int l= fAnnotationAccess.getLayer(a);

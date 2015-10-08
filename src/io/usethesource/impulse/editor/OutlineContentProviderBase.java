@@ -62,41 +62,13 @@ public abstract class OutlineContentProviderBase implements ITreeContentProvider
 	}
 
 	public Object[] getChildren(Object element) { // left here as a placeholder for the commented-out code below
-//	    if (fShowOnlyMainType) {
-//		if (element instanceof ICompilationUnit) {
-//		    element= getMainType((ICompilationUnit) element);
-//		} else if (element instanceof IClassFile) {
-//		    element= getMainType((IClassFile) element);
-//		}
-//		if (element == null)
-//		    return NO_CHILDREN;
-//	    }
-//	    if (fShowInheritedMembers && element instanceof IType) {
-//		IType type= (IType) element;
-//		if (type.getDeclaringType() == null) {
-//		    ITypeHierarchy th= getSuperTypeHierarchy(type);
-//		    if (th != null) {
-//			List children= new ArrayList();
-//			IType[] superClasses= th.getAllSupertypes(type);
-//			children.addAll(Arrays.asList(super.getChildren(type)));
-//			for(int i= 0, scLength= superClasses.length; i < scLength; i++)
-//			    children.addAll(Arrays.asList(super.getChildren(superClasses[i])));
-//			return children.toArray();
-//		    }
-//		}
-//	    }
-//	    return super.getChildren(element);
 	    return OutlineInformationControl.NO_CHILDREN;
 	}
 
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-	    if (fInfoControl != null)
-		fInfoControl.fTypeHierarchies.clear();
 	}
 
 	public void dispose() {
-	    if (fInfoControl != null)
-		fInfoControl.fTypeHierarchies.clear();
 	}
 
 	public boolean hasChildren(Object element) {

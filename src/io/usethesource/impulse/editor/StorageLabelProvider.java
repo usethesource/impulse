@@ -34,7 +34,7 @@ import org.eclipse.ui.PlatformUI;
 public class StorageLabelProvider extends LabelProvider {
 
 	private IEditorRegistry fEditorRegistry= null;
-	private Map fJarImageMap= new HashMap(10);
+	private Map<String,Image> fJarImageMap= new HashMap<>(10);
 	private Image fDefaultImage;
 
 	private IEditorRegistry getEditorRegistry() {
@@ -69,9 +69,9 @@ public class StorageLabelProvider extends LabelProvider {
 	 */
 	public void dispose() {
 		if (fJarImageMap != null) {
-			Iterator each= fJarImageMap.values().iterator();
+			Iterator<Image> each= fJarImageMap.values().iterator();
 			while (each.hasNext()) {
-				Image image= (Image)each.next();
+				Image image= each.next();
 				image.dispose();
 			}
 			fJarImageMap= null;

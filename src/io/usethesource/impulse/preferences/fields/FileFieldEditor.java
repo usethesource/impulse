@@ -159,27 +159,27 @@ public class FileFieldEditor extends StringButtonFieldEditor
     
     protected boolean doCheckState()
     {	
-        
-        String msg = null;
-
         // Here we check for empty or null strings, although
         // this may very well be checked at a higher level
         // (so we might not ever get here with this problem)
         String path = getTextControl(parent).getText();
         path= preferencesService.performSubstitutions(path);
-        if (path != null)
+        if (path != null) {
             path = path.trim();
-        else
+        }
+        else {
             path = "";//$NON-NLS-1$
+        }
+        
         if (path.length() == 0 && !emptyStringAllowed) {
-        		setErrorMessage(getFieldMessagePrefix() + "Path length is zero when empty string is not allowed");
-                return false;
+        	setErrorMessage(getFieldMessagePrefix() + "Path length is zero when empty string is not allowed");
+        	return false;
         }
         
         // Check for balanced quotes
         final String singleQuote = "'";
         final String doubleQuote = "\"";
-        Stack stack = new Stack();
+        Stack<String> stack = new Stack<>();
         for (int i = 0; i < path.length(); i++) {
         	if (path.charAt(i) == '\'') {
         		if (!stack.empty() && singleQuote.equals(stack.peek()))

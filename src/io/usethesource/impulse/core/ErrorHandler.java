@@ -14,7 +14,6 @@ package io.usethesource.impulse.core;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
 
-import io.usethesource.impulse.preferences.PreferenceCache;
 import io.usethesource.impulse.runtime.RuntimePlugin;
 
 /**
@@ -23,7 +22,6 @@ import io.usethesource.impulse.runtime.RuntimePlugin;
  * @author Claffra
  */
 public class ErrorHandler {
-    private static final boolean PRINT= false;
     private static final boolean DUMP= true;
     private static final boolean LOG= true;
 
@@ -34,16 +32,18 @@ public class ErrorHandler {
     }
 
     public static void reportError(String message, boolean showDialog, Throwable e) {
-	    if (message == null)
-	    		message = "No message given";
-		if (PRINT)
-		    System.err.println(message);
-		if (DUMP)
+	    if (message == null) {
+	    	message = "No message given";
+	    }
+		if (DUMP) {
 		    e.printStackTrace();
-		if (LOG)
+		}
+		if (LOG) {
 		    logError(message, e);
-		if (showDialog)
-		    MessageDialog.openError(null, "IMP Error", message);
+		}
+		if (showDialog) {
+		    MessageDialog.openError(null, "Impulse Error", message);
+		}
     }
 
     public static void reportError(String message) {
@@ -60,18 +60,18 @@ public class ErrorHandler {
 
     public static void reportError(final String message, boolean showDialog, boolean noDump) {
     	final String checkedMessage = message != null ? message : "No message given"; 
-		if (PRINT)
-		    System.err.println(checkedMessage);
-		if (!noDump)
+		if (!noDump) {
 		    new Error(checkedMessage).printStackTrace();
-		if (LOG || PreferenceCache.emitMessages)
+		}
+		if (LOG) {
 		    logError(checkedMessage, new Error(checkedMessage));
+		}
 		if (showDialog) {
-		    PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-			public void run() {
-			    MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "IMP Error", checkedMessage);
-			}
-		    });
+			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+				public void run() {
+					MessageDialog.openError(PlatformUI.getWorkbench().getDisplay().getActiveShell(), "IMP Error", checkedMessage);
+				}
+			});
 		}
     }
 

@@ -276,7 +276,7 @@ public class Language {
 		if (list != null) {
             StringTokenizer st = new StringTokenizer(list, ",");
 
-			for (int n = 0; st.hasMoreElements(); n++) {
+			while (st.hasMoreElements()) {
 				String exten = st.nextToken().trim();
 
 				if (exten.startsWith(".")) {

@@ -383,17 +383,15 @@ public class BooleanFieldEditor extends ChangeButtonFieldEditor {
     	Button button = getChangeControl();
     	if (button != null && !button.isDisposed()) {
     	    boolean currentValue = getBooleanValue();
-    	    if (previousValue == null)
+    	    if (previousValue == null) {
     	        setPreviousBooleanValue(!currentValue);
+    	    }
     	    button.setSelection(newValue);
     	    fieldModified = true;
-//          setModifiedMarkOnLabel();
     	    valueChanged();
         } else if (button.isDisposed()) {
             throw new IllegalStateException("BooleanFieldEditor.setBooleanValue:  button is disposed");
-        } else if (button == null) {
-            throw new IllegalStateException("BooleanFieldEditor.setBooleanValue:  button is null");
-        }
+        } 
     }
 
 

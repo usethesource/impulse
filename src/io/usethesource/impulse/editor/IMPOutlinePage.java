@@ -31,7 +31,6 @@ import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 
 import io.usethesource.impulse.editor.OutlineLabelProvider.IElementImageProvider;
-import io.usethesource.impulse.editor.internal.TreeDiffer;
 import io.usethesource.impulse.parser.IModelListener;
 import io.usethesource.impulse.parser.IParseController;
 import io.usethesource.impulse.parser.ISourcePositionLocator;
@@ -83,8 +82,6 @@ public class IMPOutlinePage extends ContentOutlinePage implements IModelListener
         }
 
         fContentProvider= new OutlineContentProviderBase(null) {
-            private ModelTreeNode fOldTree= null;
-
             public Object[] getChildren(Object element) {
                 ModelTreeNode node= (ModelTreeNode) element;
                 return node.getChildren();
@@ -92,15 +89,6 @@ public class IMPOutlinePage extends ContentOutlinePage implements IModelListener
             public Object getParent(Object element) {
                 ModelTreeNode node= (ModelTreeNode) element;
                 return node.getParent();
-            }
-            @Override
-            public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-                super.inputChanged(viewer, oldInput, newInput);
-                if (fOldTree != null) {
-                    TreeDiffer treeDiffer= new TreeDiffer((TreeViewer) viewer, fLabelProvider);
-                    treeDiffer.diff((ModelTreeNode) oldInput, (ModelTreeNode) newInput);
-                }
-                fOldTree= (ModelTreeNode) newInput;
             }
         };
     }

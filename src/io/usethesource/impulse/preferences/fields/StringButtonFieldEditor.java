@@ -15,7 +15,6 @@ package io.usethesource.impulse.preferences.fields;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.jface.util.Assert;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -228,7 +227,7 @@ public abstract class StringButtonFieldEditor extends StringFieldEditor {
      * @param text the new text
      */
     public void setChangeButtonText(String text) {
-        Assert.isNotNull(text);
+        assert text != null;
         changeButtonText = text;
         if (changeButton != null)
             changeButton.setText(text);

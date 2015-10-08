@@ -23,7 +23,7 @@ public interface ISourceEntity {
 
     ISourceEntity getParent();
 
-    ISourceEntity getAncestor(Class ofType);
+    ISourceEntity getAncestor(Class<?> ofType);
 
     IResource getResource();
 

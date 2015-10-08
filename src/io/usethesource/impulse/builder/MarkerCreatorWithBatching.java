@@ -105,20 +105,9 @@ public class MarkerCreatorWithBatching extends MarkerCreator {
      */
     public MarkerCreatorWithBatching(IFile file, IParseController parseController, BuilderBase builder) {
         super(file, builder.getErrorMarkerID());
-
         this.builder = builder;
-
-        if (builder != null) {
-            BUILDER_ID = builder.getBuilderID();
-        } else {
-            BUILDER_ID = parseController.getLanguage().getName() + ".builder";
-        }
-
-        if (builder != null) {
-            PROBLEM_MARKER_ID = builder.getErrorMarkerID();
-        } else {
-            PROBLEM_MARKER_ID = parseController.getLanguage().getName() + ".builder";
-        }
+        BUILDER_ID = builder.getBuilderID();
+        PROBLEM_MARKER_ID = builder.getErrorMarkerID();
     }
 
     public void setSeverityMap(Map<Integer, Integer>  mapOfSeverities) {

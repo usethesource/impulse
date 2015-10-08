@@ -39,7 +39,7 @@ public class WorkspaceModel implements IWorkspaceModel {
         return null;
     }
 
-    public ISourceEntity getAncestor(Class ofType) {
+    public ISourceEntity getAncestor(Class<?> ofType) {
         if (ofType == IWorkspaceModel.class) {
             return this;
         }

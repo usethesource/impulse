@@ -204,18 +204,6 @@ public class PluginImages {
         return result;
     }
 
-    private static ImageDescriptor createManaged(String prefix, String name, String key) {
-        ImageDescriptor result= create(prefix, name.substring(NAME_PREFIX_LENGTH), true);
-        if (fgAvoidSWTErrorMap == null) {
-            fgAvoidSWTErrorMap= new HashMap<String,ImageDescriptor>();
-        }
-        fgAvoidSWTErrorMap.put(key, result);
-        if (fgImageRegistry != null) {
-            RuntimePlugin.getInstance().writeErrorMsg("Image registry already defined"); //$NON-NLS-1$
-        }
-        return result;
-    }
-    
     /*
 	 * Creates an image descriptor for the given prefix and name in the JDT UI bundle. The path can
 	 * contain variables like $NL$.

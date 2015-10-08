@@ -26,8 +26,6 @@ import io.usethesource.impulse.model.ModelFactory.ModelException;
 import io.usethesource.impulse.runtime.RuntimePlugin;
 
 public class SourceFolder implements ISourceFolder {
-    private static final ISourceEntity[] NO_CHILDREN= new ISourceEntity[0];
-
     private final ISourceProject fSrcProject;
 
     private final IPath fProjRelPath;
@@ -67,7 +65,7 @@ public class SourceFolder implements ISourceFolder {
         }
     }
 
-    public ISourceEntity getAncestor(Class ofType) {
+    public ISourceEntity getAncestor(Class<?> ofType) {
         if (ofType == ISourceProject.class) {
             return fSrcProject;
         } else if (ofType == IWorkspaceModel.class) {

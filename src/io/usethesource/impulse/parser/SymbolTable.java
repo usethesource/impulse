@@ -11,7 +11,8 @@ import java.util.Set;
  * represent lexical nesting of scopes.
  */
 public class SymbolTable<T> extends HashMap<String,T> {
-    private final SymbolTable<T> parent;
+	private static final long serialVersionUID = 6263604301308234940L;
+	private final SymbolTable<T> parent;
 
     public SymbolTable() { this(null); }
     public SymbolTable(SymbolTable<T> parent) { this.parent = parent; }
@@ -35,7 +36,8 @@ public class SymbolTable<T> extends HashMap<String,T> {
         return result;
     }
 
-    public <T1> List<T1> allDefsOfType(Class<T1> type) {
+    @SuppressWarnings("unchecked")
+	public <T1> List<T1> allDefsOfType(Class<T1> type) {
         List<T1> result = new ArrayList<T1>();
         
         for(String sym: keySet()) {

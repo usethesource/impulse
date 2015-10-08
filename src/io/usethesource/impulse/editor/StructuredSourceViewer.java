@@ -312,7 +312,8 @@ public class StructuredSourceViewer extends ProjectionViewer {
     /*
      * @see ISourceViewer#configure(SourceViewerConfiguration)
      */
-    public void configure(SourceViewerConfiguration configuration) {
+    @SuppressWarnings("unchecked")
+	public void configure(SourceViewerConfiguration configuration) {
         /*
          * Prevent access to colors disposed in unconfigure(), see: https://bugs.eclipse.org/bugs/show_bug.cgi?id=53641
          * https://bugs.eclipse.org/bugs/show_bug.cgi?id=86177
@@ -351,11 +352,12 @@ public class StructuredSourceViewer extends ProjectionViewer {
                 // to be the case.  This may be revised if we decide to somehow avoid the possibility
                 // that a strategy of an inappropriate type might appear here.
                 if (strategies != null && strategies.size() > 0) {
-//                    fAutoEditStrategy= (IAutoEditStrategy) strategies.get(0);
-                	if (strategies.get(0) instanceof IAutoEditStrategy)
+                	if (strategies.get(0) instanceof IAutoEditStrategy) {
                 		fAutoEditStrategy= (IAutoEditStrategy) strategies.get(0);
-                	else
+                	}
+                	else {
                 		fAutoEditStrategy = new DefaultAutoIndentStrategy();
+                	}
                 }
             }
             

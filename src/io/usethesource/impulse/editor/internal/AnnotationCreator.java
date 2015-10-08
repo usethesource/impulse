@@ -35,7 +35,6 @@ import io.usethesource.impulse.parser.IMessageHandler;
  * which uses the class MarkerCreator to create markers).
  * @author rmfuhrer
  */
-@SuppressWarnings("unchecked")
 public class AnnotationCreator implements IMessageHandler {
     private static class PositionedMessage {
         public final String message;
@@ -110,7 +109,7 @@ public class AnnotationCreator implements IMessageHandler {
                 }
                 modelExt.replaceAnnotations(oldAnnotations, newAnnotations);
             } else if (model != null) { // model could be null if, e.g., we're directly browsing a file version in a src repo
-                for(Iterator i= model.getAnnotationIterator(); i.hasNext(); ) {
+                for(Iterator<?> i= model.getAnnotationIterator(); i.hasNext(); ) {
                     Annotation a= (Annotation) i.next();
     
                     if (UniversalEditor.isParseAnnotation(a)) {
@@ -171,7 +170,7 @@ public class AnnotationCreator implements IMessageHandler {
 
             modelExt.replaceAnnotations(oldAnnotations, Collections.EMPTY_MAP);
         } else {
-            for(Iterator i= model.getAnnotationIterator(); i.hasNext(); ) {
+            for(Iterator<?> i= model.getAnnotationIterator(); i.hasNext(); ) {
                 Annotation a= (Annotation) i.next();
 
                 if (UniversalEditor.isParseAnnotation(a)) {
