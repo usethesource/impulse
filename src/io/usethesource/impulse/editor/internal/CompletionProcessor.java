@@ -43,10 +43,6 @@ public class CompletionProcessor implements IContentAssistProcessor, IModelListe
         fContentProposer= ServiceFactory.getInstance().getContentProposer(fLanguage);
     }
 
-    public AnalysisRequired getAnalysisRequired() {
-        return AnalysisRequired.LEXICAL_ANALYSIS;
-    }
-
     public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer, int offset) {
         try {
             if (fParseController != null && fContentProposer != null) {

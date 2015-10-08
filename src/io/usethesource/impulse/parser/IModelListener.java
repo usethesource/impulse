@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2007 IBM Corporation.
+* Copyright (c) 2007, IBM Corporation, 2015 CWI
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -23,27 +23,6 @@ import io.usethesource.impulse.language.ILanguageService;
  * @author rfuhrer@watson.ibm.com
  */
 public interface IModelListener extends ILanguageService {
-    // BROKEN!!!
-    // The following has no notion of the scope of analysis. E.g., providing a language
-    // service may require analysis within a much wider scope than a compilation unit
-    // (such as whole program analysis). Also, analyses don't really form a linear order.
-    public enum AnalysisRequired {
-        NONE(0),
-        LEXICAL_ANALYSIS(1),
-        SYNTACTIC_ANALYSIS(2),
-        NAME_ANALYSIS(3),
-        TYPE_ANALYSIS(4),
-        CALLGRAPH_ANALYSIS(5),
-        POINTER_ANALYSIS(6);
-
-        private final int fLevel;
-
-        private AnalysisRequired(int i) { fLevel= i; }
-
-        public int level() { return fLevel; }
-    };
-
-    public AnalysisRequired getAnalysisRequired();
 
     /**
      * Notify the listener that the document has been updated and a new AST has been computed

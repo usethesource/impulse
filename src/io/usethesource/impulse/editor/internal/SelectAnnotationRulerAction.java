@@ -41,7 +41,7 @@ import io.usethesource.impulse.runtime.RuntimePlugin;
  * Was originally called >code>JavaSelectMarkerRulerAction</code>.
  * </p>
  */
-@SuppressWarnings({"unchecked", "unused"})
+@SuppressWarnings({"unused"})
 public class SelectAnnotationRulerAction extends SelectMarkerRulerAction {
 
 	private ITextEditor fTextEditor;
@@ -59,8 +59,6 @@ public class SelectAnnotationRulerAction extends SelectMarkerRulerAction {
 
 		fAnnotationPreferenceLookup= EditorsUI.getAnnotationPreferenceLookup();
 		fStore= RuntimePlugin.getInstance().getPreferenceStore();
-
-//		PlatformUI.getWorkbench().getHelpSystem().setHelp(this, IJavaHelpContextIds.JAVA_SELECT_MARKER_RULER_ACTION);
 	}
 
 	public void run() {

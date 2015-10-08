@@ -43,7 +43,6 @@ public class IMPOutlinePage extends ContentOutlinePage implements IModelListener
     private final OutlineContentProviderBase fContentProvider;
     private final TreeModelBuilderBase fModelBuilder;
     private final ILabelProvider fLabelProvider;
-    private final IElementImageProvider fImageProvider;
     private final IParseController fParseController;
     private final IRegionSelectionService regionSelector;
     private final IEntityNameLocator fNameLocator;
@@ -67,7 +66,6 @@ public class IMPOutlinePage extends ContentOutlinePage implements IModelListener
         fParseController= parseController;
         fModelBuilder= modelBuilder;
         fLabelProvider= labelProvider;
-        fImageProvider= imageProvider;
         fNameLocator= nameLocator;
         
         // SMS 21 Aug 2008
@@ -105,10 +103,6 @@ public class IMPOutlinePage extends ContentOutlinePage implements IModelListener
                 fOldTree= (ModelTreeNode) newInput;
             }
         };
-    }
-
-    public AnalysisRequired getAnalysisRequired() {
-        return IModelListener.AnalysisRequired.SYNTACTIC_ANALYSIS;
     }
 
     public void update(final IParseController parseController, IProgressMonitor monitor) {

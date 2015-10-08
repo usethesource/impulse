@@ -45,15 +45,6 @@ public abstract class EditorServiceBase implements IEditorService {
 	
 
 	/**
-	 * @return	A value from the enumeration IModelListener.AnalysisREquired,
-	 * 			reflecting the dependence of the implementation of this
-	 * 			service on other analyses that need to be performed
-	 * 			before this one can be executed correctly
-	 */
-	public abstract AnalysisRequired getAnalysisRequired();
-
-	
-	/**
 	 * This method will be called when the AST maintained by the parseController
 	 * has been updated (subject to the completion of analyses on which this
 	 * service depends and on the apparent availability of time in which to

@@ -51,8 +51,6 @@ public class ParserScheduler extends Job {
 
     private final List<IModelListener> fAstListeners= new ArrayList<IModelListener>();
 
-//  private final IPreferencesService fPrefService;
-
     public ParserScheduler(IParseController parseController, IEditorPart editorPart,
             IDocumentProvider docProvider, IMessageHandler msgHandler) {
     	super(LanguageRegistry.findLanguage(EditorInputUtils.getPath(editorPart.getEditorInput()), null).getName() + " ParserScheduler for " + editorPart.getEditorInput().getName());
@@ -61,10 +59,6 @@ public class ParserScheduler extends Job {
         fEditorPart= editorPart;
         fDocumentProvider= docProvider;
         fMsgHandler= msgHandler;
-//      fPrefService= new PreferencesService(fParseController.getProject().getRawProject(), fParseController.getLanguage().getName());
-
-        // rmf 7/1/2008 - N.B. The parse controller is now initialized before it gets handed to us here,
-        // since some other services may actually depend on that.
     }
 
     public IStatus run(IProgressMonitor monitor) {
@@ -80,26 +74,23 @@ public class ParserScheduler extends Job {
             if (document == null)
                 return Status.OK_STATUS;
 
-            if (PreferenceCache.emitMessages /* fPrefService.getBooleanPreference(PreferenceConstants.P_EMIT_MESSAGES) */) {
-                RuntimePlugin.getInstance().writeInfoMsg(
-                        "Parsing language " + fParseController.getLanguage().getName() + " for input " + editorInput.getName());
+            if (PreferenceCache.emitMessages) {
+                RuntimePlugin.getInstance().writeInfoMsg("Parsing language " + fParseController.getLanguage().getName() + " for input " + editorInput.getName());
             }
 
-//          System.out.println("Parsing started.");
             // If we're editing a workspace resource, check to make sure that it still exists
             if (sourceStillExists()) {
                 fMsgHandler.clearMessages();
                 // Don't bother to retrieve the AST; we don't need it; just make sure the document gets parsed.
                 fParseController.parse(document, monitor);
                 fMsgHandler.endMessages();
-//          } else {
-//              System.err.println("Scheduled parsing was bypassed due to project deletion.");
             }
-//          System.out.println("Parsing complete.");
+
             if (!monitor.isCanceled() && sourceStillExists()) {
                 notifyModelListeners(monitor);
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
         	Language lang = fParseController.getLanguage();
         	String input = editorInput != null ? editorInput.getName() : "<unknown editor input";
         	String name = lang != null ? lang.getName() : "<unknown language>";
@@ -107,7 +98,8 @@ public class ParserScheduler extends Job {
             // RMF 8/2/2006 - Notify the AST listeners even on an exception - the compiler front end
             // may have failed at some phase, but there may be enough info to drive IDE services.
             notifyModelListeners(monitor);
-        } catch (LinkageError e) {
+        } 
+        catch (LinkageError e) {
             // Catch things like NoClassDefFoundError that might result from, e.g., errors in plugin metadata, classpath, etc.
             ErrorHandler.reportError("Error loading IParseController implementation class for language " + fParseController.getLanguage().getName(), e);
         }
@@ -138,42 +130,17 @@ public class ParserScheduler extends Job {
     public void notifyModelListeners(IProgressMonitor monitor) {
         // Suppress the notification if there's no AST (e.g. due to a parse error)
         if (fParseController != null) {
-            if (
-                PreferenceCache.emitMessages
-                // TODO RMF Switch to pref svc for this, once the "global" IMP preferences (using the "IMP" pseudo-language name) gets initialized properly
-//              fPrefService.isDefined(PreferenceConstants.P_EMIT_MESSAGES) &&
-//              fPrefService.getBooleanPreference(PreferenceConstants.P_EMIT_MESSAGES) ||
-//              RuntimePlugin.getInstance().getPreferencesService().getBooleanPreference(PreferenceConstants.P_EMIT_MESSAGES)
-                ) {
-                RuntimePlugin.getInstance().writeInfoMsg(
-                        "Notifying AST listeners of change in " + (fParseController.getPath() != null ? fParseController.getPath().toPortableString() : "<unknown file>"));
+            if (PreferenceCache.emitMessages) {
+                RuntimePlugin.getInstance().writeInfoMsg("Notifying AST listeners of change in " + (fParseController.getPath() != null ? fParseController.getPath().toPortableString() : "<unknown file>"));
             }
-            for(int n= fAstListeners.size() - 1; n >= 0 && !monitor.isCanceled(); n--) {
-                IModelListener listener= fAstListeners.get(n);
-                // Pretend to get through the highest level of analysis so all services execute (for now)
-                int analysisLevel= IModelListener.AnalysisRequired.POINTER_ANALYSIS.level();
-
-                if (fParseController.getCurrentAst() == null)
-                    analysisLevel= IModelListener.AnalysisRequired.LEXICAL_ANALYSIS.level();
-                // TODO How to tell how far we got with the source analysis? The IAnalysisController should tell us!
-                // TODO Rename IParseController to IAnalysisController
-                // TODO Compute the minimum amount of analysis sufficient for all current listeners, and pass that to
-                // the IAnalysisController.
-                if (listener.getAnalysisRequired().level() <= analysisLevel) {
-                    listener.update(fParseController, monitor);
-                }
+            
+            if (fParseController.getCurrentAst() != null) {
+            	for (int n=fAstListeners.size() - 1; n >= 0 && !monitor.isCanceled(); n--) {
+            		IModelListener listener= fAstListeners.get(n);
+            		listener.update(fParseController, monitor);
+            	}
             }
-//            long curTime= System.currentTimeMillis();
-//            System.out.println("All model listeners notified; time = " + curTime);
-//            long diffToRuntimeStart= curTime - RuntimePlugin.PRE_STARTUP_TIME;
-//            long diffToEditorStart= curTime - RuntimePlugin.EDITOR_START_TIME;
-//            System.out.println("Time from runtime start: " + diffToRuntimeStart);
-//            System.out.println("Time from editor start: " + diffToEditorStart);
-        } else if (PreferenceCache.emitMessages
-//                fPrefService.isDefined(PreferenceConstants.P_EMIT_MESSAGES) &&
-//                fPrefService.getBooleanPreference(PreferenceConstants.P_EMIT_MESSAGES) ||
-//                RuntimePlugin.getInstance().getPreferencesService().getBooleanPreference(PreferenceConstants.P_EMIT_MESSAGES)
-                ) {
+        } else if (PreferenceCache.emitMessages) {
             RuntimePlugin.getInstance().writeInfoMsg("No AST; bypassing listener notification.");
         }
     }

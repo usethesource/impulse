@@ -139,13 +139,13 @@ import io.usethesource.impulse.parser.IMessageHandler;
 import io.usethesource.impulse.parser.IModelListener;
 import io.usethesource.impulse.parser.IParseController;
 import io.usethesource.impulse.preferences.IPreferencesService;
-import io.usethesource.impulse.preferences.PreferenceCache;
-import io.usethesource.impulse.preferences.PreferenceConstants;
-import io.usethesource.impulse.preferences.PreferencesService;
 import io.usethesource.impulse.preferences.IPreferencesService.BooleanPreferenceListener;
 import io.usethesource.impulse.preferences.IPreferencesService.IntegerPreferenceListener;
 import io.usethesource.impulse.preferences.IPreferencesService.PreferenceServiceListener;
 import io.usethesource.impulse.preferences.IPreferencesService.StringPreferenceListener;
+import io.usethesource.impulse.preferences.PreferenceCache;
+import io.usethesource.impulse.preferences.PreferenceConstants;
+import io.usethesource.impulse.preferences.PreferencesService;
 import io.usethesource.impulse.runtime.RuntimePlugin;
 import io.usethesource.impulse.services.IASTFindReplaceTarget;
 import io.usethesource.impulse.services.IAnnotationTypeInfo;
@@ -573,17 +573,14 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
         Position position= new Position(0, 0);
         Annotation annotation= getNextAnnotation(selection.getOffset(), selection.getLength(), forward, position);
 
-        if (false /* delayed - see bug 18316 */) {
-            selectAndReveal(position.getOffset(), position.getLength());
-        } else /* no delay - see bug 18316 */{
-            setStatusLineErrorMessage(null);
-            setStatusLineMessage(null);
-            if (annotation != null) {
-                updateAnnotationViews(annotation);
-                selectAndReveal(position.getOffset(), position.getLength());
-                setStatusLineMessage(annotation.getText());
-            }
+        setStatusLineErrorMessage(null);
+        setStatusLineMessage(null);
+        if (annotation != null) {
+        	updateAnnotationViews(annotation);
+        	selectAndReveal(position.getOffset(), position.getLength());
+        	setStatusLineMessage(annotation.getText());
         }
+        
         return annotation;
     }
     
@@ -612,7 +609,7 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
 
         IAnnotationModel model= getDocumentProvider().getAnnotationModel(getEditorInput());
 
-        for(Iterator<Annotation> e= model.getAnnotationIterator(); e.hasNext(); ) {
+        for(@SuppressWarnings("unchecked") Iterator<Annotation> e= model.getAnnotationIterator(); e.hasNext(); ) {
             Annotation a= (Annotation) e.next();
 
             if (!(a instanceof MarkerAnnotation) && !isParseAnnotation(a))
@@ -1560,7 +1557,7 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
     public void refreshMarkerAnnotations(String problemMarkerType) {
     	// Get current marker annotations
 		IAnnotationModel model = getDocumentProvider().getAnnotationModel(getEditorInput());
-		Iterator annIter = model.getAnnotationIterator();
+		Iterator<?> annIter = model.getAnnotationIterator();
 		List<MarkerAnnotation> markerAnnotations = new ArrayList<MarkerAnnotation>();
 		while (annIter.hasNext()) {
 			Object ann = annIter.next();
@@ -1628,7 +1625,7 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
     		// also maintain a map of markers to marker annotations (as	
     		// there doesn't seem to be a way to get from a marker to the
     		// annotations that may represent it)
-    		Iterator annotations = model.getAnnotationIterator();
+    		Iterator<?> annotations = model.getAnnotationIterator();
 
     		while (annotations.hasNext()) {
     			Object ann = annotations.next();
@@ -1660,7 +1657,7 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
     		}
     	}
 
-    	public Annotation findParseAnnotationForMarker(IAnnotationModel model, IMarker marker, List parseAnnotations) {
+    	public Annotation findParseAnnotationForMarker(IAnnotationModel model, IMarker marker, List<?> parseAnnotations) {
     		Integer markerStartAttr = null;
     		Integer markerEndAttr = null;
 
@@ -1828,11 +1825,8 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
     private IProblemChangedListener fAnnotationUpdater;
 
     private class AnnotationCreatorListener implements IModelListener {
-        public AnalysisRequired getAnalysisRequired() {
-            return AnalysisRequired.NONE; // Even if it doesn't scan, it's ok - this posts the error annotations!
-        }
-        public void update(IParseController parseController, IProgressMonitor monitor) {
-            // SMS 25 Apr 2007
+
+    	public void update(IParseController parseController, IProgressMonitor monitor) {
             // Since parsing has finished, check whether the marker annotations
             // are up-to-date with the most recent parse annotations.
             // Assuming that's often enough--i.e., don't refresh the marker
@@ -1840,8 +1834,9 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
             // since there will be many of these, including possibly many that
             // don't relate to problem markers.
             final IAnnotationTypeInfo annotationTypeInfo= parseController.getAnnotationTypeInfo();
+
             if (annotationTypeInfo != null) {
-                List problemMarkerTypes = annotationTypeInfo.getProblemMarkerTypes();
+                List<?> problemMarkerTypes = annotationTypeInfo.getProblemMarkerTypes();
                 for (int i = 0; i < problemMarkerTypes.size(); i++) {
                     refreshMarkerAnnotations((String)problemMarkerTypes.get(i));
                 }
@@ -1896,7 +1891,7 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
     public void removeParserAnnotations() {
     	IAnnotationModel model= getDocumentProvider().getAnnotationModel(getEditorInput());
 
-    	for(Iterator i= model.getAnnotationIterator(); i.hasNext(); ) {
+    	for(Iterator<?> i= model.getAnnotationIterator(); i.hasNext(); ) {
     	    Annotation a= (Annotation) i.next();
 
     	    if (a.getType().equals(PARSE_ANNOTATION_TYPE))

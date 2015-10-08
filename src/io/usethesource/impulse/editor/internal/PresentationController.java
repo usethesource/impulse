@@ -65,10 +65,6 @@ public class PresentationController implements IModelListener {
         fColorer= langServiceMgr.getTokenColorer();
     }
 
-    public AnalysisRequired getAnalysisRequired() {
-        return AnalysisRequired.LEXICAL_ANALYSIS;
-    }
-
     private void dumpToken(Object token, ISourcePositionLocator locator, PrintStream ps) {
         if (locator != null) {
             try {
