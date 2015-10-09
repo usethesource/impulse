@@ -100,7 +100,7 @@ public class LanguageRegistry {
 			    Platform.getExtensionRegistry().getExtensionPoint(RuntimePlugin.IMP_RUNTIME, ServiceFactory.LANGUAGE_DESCRIPTION_POINT_ID);
 	
 			if (extensionPoint == null) {
-				ErrorHandler.reportError("IMP language descriptor extension point '" +
+				ErrorHandler.reportError("Impulse language descriptor extension point '" +
 				        (RuntimePlugin.IMP_RUNTIME + "." + ServiceFactory.LANGUAGE_DESCRIPTION_POINT_ID) +
 				        "' non-existent?");
 			} else {
@@ -118,9 +118,9 @@ public class LanguageRegistry {
 			}
 		} catch (InvalidRegistryObjectException e) {
 			if (PreferenceCache.emitMessages) {
-				RuntimePlugin.getInstance().logException("IMP LanguageRegistry error in preInitEditorRegistry()", e);
+				RuntimePlugin.getInstance().logException("Impulse LanguageRegistry error in preInitEditorRegistry()", e);
 			} else {
-				ErrorHandler.reportError("IMP LanguageRegistry error", e);
+				ErrorHandler.reportError("Impulse LanguageRegistry error", e);
 			}
 		}
 	}
@@ -287,7 +287,6 @@ public class LanguageRegistry {
 						"Looking for IMP language description extensions...");
 			}
 
-//			List<String> langExtens= collectAllLanguageFileNameExtensions();
 			List<IFileEditorMapping> newMap = new ArrayList<IFileEditorMapping>();
 
             addNonUniversalEditorMappings(newMap);
