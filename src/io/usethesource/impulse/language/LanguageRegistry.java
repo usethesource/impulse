@@ -469,7 +469,7 @@ public class LanguageRegistry {
             IEditorDescriptor defaultEditor= mapping.getDefaultEditor();
             FileEditorMapping fem= (FileEditorMapping) mapping;
 
-            if (defaultEditor == null || defaultEditor.getId().equals("")) {
+            if (false && (defaultEditor == null || defaultEditor.getId().equals(""))) {
                 fem.setDefaultEditor((EditorDescriptor) sUniversalEditor);
 	        } else {
 	        	// SMS 19 Nov 2008
