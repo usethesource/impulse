@@ -41,10 +41,10 @@ public class RuntimePlugin extends PluginBase implements IStartup {
 
         @SuppressWarnings("unchecked")
 		@Override
-        public <T> T getAdapter(Object adaptableObject, Class<T> adapterType) {
+        public Object getAdapter(Object adaptableObject, Class adapterType) {
             if (adaptableObject instanceof IResource && adapterType == ISourceEntity.class) {
                 try {
-                    return (T) ModelFactory.open((IResource) adaptableObject);
+                    return ModelFactory.open((IResource) adaptableObject);
                 } catch (ModelException e) {
                     RuntimePlugin.getInstance().logException("Unable to adapt " + adaptableObject.getClass().getName() + " to " + adapterType.getName(), e);
                 }
