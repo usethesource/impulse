@@ -83,8 +83,11 @@ public class HoverHelpController implements ITextHover, ITextHoverExtension, ITe
 					textViewer, hoverRegion);
 			return (info == null) ? getHoverInfo(textViewer, hoverRegion)
 					: info;
-		} else
+		} else if (fHover != null) {
 			return fHover.getHoverInfo(textViewer, hoverRegion);
+		} else {
+			return this.getHoverInfo(textViewer, hoverRegion);
+		}
 	}
 	
     public void update(IParseController controller, IProgressMonitor monitor) {
