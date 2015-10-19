@@ -19,7 +19,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.FontRegistry;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.ui.IStartup;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -31,7 +30,7 @@ import io.usethesource.impulse.preferences.PreferenceCache;
 import io.usethesource.impulse.preferences.PreferenceConstants;
 import io.usethesource.impulse.utils.ConsoleUtil;
 
-public class RuntimePlugin extends PluginBase implements IStartup {
+public class RuntimePlugin extends PluginBase {
     /**
      * An IAdapterFactory implementation that adapts IResources to ISourceEntity's.
      * @author rfuhrer@watson.ibm.com
@@ -167,11 +166,5 @@ public class RuntimePlugin extends PluginBase implements IStartup {
         return getInstance().internalGetImageDescriptorRegistry();
     }
 
-    public void earlyStartup() {
-        if (EMIT_TIMING_INFO) {
-            final long curTime= System.currentTimeMillis();
-            getConsoleStream().println("Entered RuntimePlugin.earlyStartup(); time is " + curTime);
-        }
-        LanguageRegistry.startup();
-    }
+  
 }
