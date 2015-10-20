@@ -22,7 +22,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
-import io.usethesource.impulse.language.LanguageRegistry;
 import io.usethesource.impulse.model.ISourceEntity;
 import io.usethesource.impulse.model.ModelFactory;
 import io.usethesource.impulse.model.ModelFactory.ModelException;
