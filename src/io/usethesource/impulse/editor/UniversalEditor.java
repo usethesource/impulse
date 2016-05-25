@@ -72,10 +72,12 @@ import org.eclipse.jface.text.source.projection.ProjectionSupport;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -299,6 +301,10 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
 
     protected void createActions() {
         super.createActions();
+        
+        if (getLanguage() == null) {
+            return;
+        }
 
         final ResourceBundle bundle= ResourceBundle.getBundle(MESSAGE_BUNDLE);
         Action action= new ContentAssistAction(bundle, "ContentAssistProposal.", this);
@@ -644,11 +650,12 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
     public void createPartControl(Composite parent) {
         fLanguage= LanguageRegistry.findLanguage(getEditorInput(), getDocumentProvider());
 
-        // SMS 10 Oct 2008:  null check added per bug #242949
         if (fLanguage == null) {
-        	
-//            throw new IllegalArgumentException("No language support found for files of type '" +
-//            		EditorInputUtils.getPath(getEditorInput()).getFileExtension() + "'");
+            // so the content will show:
+            super.createPartControl(parent);
+            // so the user knows somethings afoot:
+            ErrorHandler.reportError("No language support is registered at the moment for this input: " + getEditorInput().getName(), true);
+            return;
         }
 
         // Create language service extensions now, since some services could

@@ -22,7 +22,7 @@ import io.usethesource.impulse.runtime.RuntimePlugin;
  * @author Claffra
  */
 public class ErrorHandler {
-    private static final boolean DUMP= true;
+    private static final boolean DUMP= false;
     private static final boolean LOG= true;
 
     public static void reportError(String message, Throwable e) {
