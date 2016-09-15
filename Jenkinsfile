@@ -18,10 +18,7 @@ node {
     
     stage 'Deploy'
     sh "mvn -s ${env.HOME}/usethesource-maven-settings.xml -DskipTests -B deploy"
-    
-    stage 'Archive'
-    step([$class: 'ArtifactArchiver', artifacts: '**/target/*.jar', fingerprint: true])
-    
+        
     if (currentBuild.previousBuild.result == "FAILURE") { 
 		slackSend (color: '#00FF00', message: "BUILD BACK TO NORMAL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
     }
