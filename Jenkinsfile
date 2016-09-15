@@ -25,7 +25,7 @@ node {
     
     build job: '../rascal-eclipse/master', wait: false
   } catch(e) {
-	  slackSend (color: '#d9534f', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+	  slackSend (color: '#d9534f', message: "FAILED: Job '${env.JOB_NAME} [<${env.BUILD_URL}|${env.BUILD_NUMBER}>]'")
       throw e
   }
 }
