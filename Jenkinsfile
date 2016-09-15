@@ -20,12 +20,12 @@ node {
     sh "mvn -s ${env.HOME}/usethesource-maven-settings.xml -DskipTests -B deploy"
         
     if (currentBuild.previousBuild.result == "FAILURE") { 
-		slackSend (color: '#5cb85c', message: "BUILD BACK TO NORMAL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+		slackSend (color: '#5cb85c', message: "BUILD BACK TO NORMAL: <${env.BUILD_URL}|${env.JOB_NAME} [${env.BUILD_NUMBER}]>")
     }
     
     build job: '../rascal-eclipse/master', wait: false
   } catch(e) {
-	  slackSend (color: '#d9534f', message: "FAILED: Job '${env.JOB_NAME} [<${env.BUILD_URL}|${env.BUILD_NUMBER}>]'")
+	  slackSend (color: '#d9534f', message: "FAILED: <${env.BUILD_URL}|${env.JOB_NAME} [${env.BUILD_NUMBER}]>")
       throw e
   }
 }
