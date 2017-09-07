@@ -14,6 +14,7 @@ package io.usethesource.impulse.preferences;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +68,17 @@ public class PreferencesService implements IPreferencesService {
 	private IScopeContext instanceScope = InstanceScope.INSTANCE;
 	private IScopeContext defaultScope = DefaultScope.INSTANCE;	
 	
+	private IScopeContext upFrom(IScopeContext scope) {
+		if (scope instanceof ProjectScope) {
+			return instanceScope;
+		}
+		else if (scope == instanceScope) {
+			return configurationScope;
+		}
+		else {
+			return defaultScope;
+		}
+	}
 	/*
 	 * Constructors
 	 */
@@ -769,98 +781,53 @@ public class PreferencesService implements IPreferencesService {
 	/*	
 	 * Get preferences at a given level by type
 	 */
-
-	// SMS 19 Sep 2006:  Are these all wrong????
-	
-	public boolean getBooleanPreference(String level, String key) {
-		//return preferencesService.getBoolean(languageName, key, false, new IScopeContext[] { getScopeForLevel(level)} 	);
+	private IEclipsePreferences findPreferenceNode(String level, String key) {
 		IScopeContext scope = getScopeForLevel(level);
 		IEclipsePreferences node = scope.getNode(languageName);
-		boolean result = node.getBoolean(key, false);
-		return result;
+		
+		try {
+			while (!Arrays.stream(node.keys()).anyMatch(k -> k.equals(key))) {
+				if (scope == defaultScope) {
+					break;
+				}
+				scope = upFrom(scope);
+				node = scope.getNode(languageName);
+			}
+		} catch (BackingStoreException e) {
+			// ignoring weird exception because the following statement will
+			// try and recover:
+		}
+		
+		return node;
 	}
 	
+	public boolean getBooleanPreference(String level, String key) {
+		return findPreferenceNode(level, key).getBoolean(key, false);
+	}
+
 	public byte[] getByteArrayPreference(String level, String key) {
-		// SMS 19 Sep 2006:  The following comment is now somewhat outdated in that
-		// direct access to the preferences nodes is used in all of the methods in this
-		// group, but the comment may still be informative with respect to particular
-		// issues that affect byte arrays.
-		//
-		// Why do the following instead of getting the value directly from the preferences service
-		// as is done with the other preferences types?  Note that, while values are retrieved here
-		// from the preferences service, values are set through the preferences nodes for the individual
-		// scope contexts.  (That is because the preferences service allows preferences to be retrieved
-		// directly but not set directly.)  Also recall that all preferences are stored interanlly as
-		// Strings.  When a byte array is set or retrieved through a preferences context, the byte
-		// array is encoded as a Base64 String.  However, when a byte array is retrieved from the
-		// preferences service, it is just converted to a string in the "native" representation
-		// (that is, without regard to any specific encoding).  Apparently the native encoding is not
-		// always Base64.  Consequently, a byte array may be stored through the preferences node in
-		// one representation retrieved from the preferences service in another representation, so
-		// from the client's perspective the values stored and retrieved may be different.  Since we
-		// elsewhere store byte array preferences through the node we retrieve them here from the node.
-		IScopeContext context = getScopeForLevel(level);
-		IEclipsePreferences node = context.getNode(languageName);
-		byte[] result = node.getByteArray(key, new byte[0]);
-		return result;
+		return findPreferenceNode(level, key).getByteArray(key, new byte[0]);
 	}
 	
 	public double getDoublePreference(String level, String key) {
-		//return preferencesService.getDouble(languageName, key, 0, new IScopeContext[] { getScopeForLevel(level)} );
-		IScopeContext scope = getScopeForLevel(level);
-		IEclipsePreferences node = scope.getNode(languageName);
-		double result = node.getDouble(key, 0);
-		return result;
+		return findPreferenceNode(level, key).getDouble(key, 0);
 	}
 	
 	public float getFloatPreference(String level, String key) {
-		//return preferencesService.getFloat(languageName, key, 0, new IScopeContext[] { getScopeForLevel(level)} );
-		IScopeContext scope = getScopeForLevel(level);
-		IEclipsePreferences node = scope.getNode(languageName);
-		float result = node.getFloat(key, 0);
-		return result;
+		return findPreferenceNode(level, key).getFloat(key, 0);
 	}
 	
 	public int getIntPreference(String level, String key) {
-		//return preferencesService.getInt(languageName, key, 0, new IScopeContext[] { getScopeForLevel(level)} );
-		IScopeContext scope = getScopeForLevel(level);
-		IEclipsePreferences node = scope.getNode(languageName);
-		int result = node.getInt(key, 0);
-		return result;
+		return findPreferenceNode(level, key).getInt(key, 0);
 	}
 	
 	public long getLongPreference(String level, String key) {
-		//return preferencesService.getLong(languageName, key, 0, new IScopeContext[] { getScopeForLevel(level)} );
-		IScopeContext scope = getScopeForLevel(level);
-		IEclipsePreferences node = scope.getNode(languageName);
-		long result = node.getLong(key, 0);
-		return result;
+		return findPreferenceNode(level, key).getLong(key, 0);
 	}
 	
 	public String getStringPreference(String level, String key) {
-		/*
-		if (!isaPreferencesLevel(level)) return null;
-		String[] previousLevels = preferencesService.getDefaultLookupOrder(languageName, key);
-		String[] newLevels = new String[4];
-		for (int i = 0; i < newLevels.length; i++) {
-			newLevels[i] = level;
-		}
-		preferencesService.setDefaultLookupOrder(languageName, key, newLevels);
-		String result = preferencesService.getString(languageName, key, null, new IScopeContext[] { getScopeForLevel(level)} );
-		preferencesService.setDefaultLookupOrder(languageName, key, previousLevels);
-		// SMS 8 Sep 2006:  leftover from debugging
-		if (result != null && result.equals("")) {
-			result = null;
-			result = "";
-		}
-		return result;
-		*/
-		IScopeContext scope = getScopeForLevel(level);
-		IEclipsePreferences node = scope.getNode(languageName);
-		String result = node.get(key, null);
-		return performSubstitutions(result);
+		return findPreferenceNode(level, key).get(key, null);
 	}
-	
 	
 	/*
      *  Return the "raw" (unsubstituted) version of the preference value.
@@ -869,10 +836,7 @@ public class PreferencesService implements IPreferencesService {
      *  SMS 21 Feb 2008
      */
 	public String getRawStringPreference(String level, String key) {
-		IScopeContext scope = getScopeForLevel(level);
-		IEclipsePreferences node = scope.getNode(languageName);
-		String result = node.get(key, null);
-		return result;
+		return findPreferenceNode(level, key).get(key, null);
 	}
 
 	/*
