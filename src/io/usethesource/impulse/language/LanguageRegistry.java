@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import org.eclipse.core.internal.registry.ExtensionRegistry;
 import org.eclipse.core.runtime.*;
@@ -232,10 +233,12 @@ public class LanguageRegistry {
     }
 
     private static void updateEditorMappings(Language language) {
-        List<IFileEditorMapping> mappings = new ArrayList<IFileEditorMapping>();
-        Collections.addAll(mappings, getEditorRegistry().getFileEditorMappings());
-        addUniversalEditorMappings(language.getName(), language.getIconPath(), language.getFilenameExtensions(), language.getBundleID(), mappings);
-        updateEditorRegistry(mappings);
+    	updateEditorRegistry(() -> {
+    		List<IFileEditorMapping> mappings = new ArrayList<IFileEditorMapping>();
+    		Collections.addAll(mappings, getEditorRegistry().getFileEditorMappings());
+    		addUniversalEditorMappings(language.getName(), language.getIconPath(), language.getFilenameExtensions(), language.getBundleID(), mappings);
+    		return mappings;
+        });
     }
 
     /**
@@ -294,7 +297,7 @@ public class LanguageRegistry {
 	            addUniversalEditorMappings(lang.getName(), lang.getIconPath(), lang.getFilenameExtensions(), lang.getBundleID(), newMap);
             }
 			
-			updateEditorRegistry(newMap);
+			updateEditorRegistry(() -> newMap); // in this case, no need for lazily computing the map
 			setFullyInitialized();
 			runLanguageRegistrars();
 			
@@ -540,9 +543,10 @@ public class LanguageRegistry {
 	 * Commits a new list of editor mappings to the editorRegistry
 	 * @param newMap
 	 */
-	private static void updateEditorRegistry(final List<IFileEditorMapping> newMap) {
+	private static void updateEditorRegistry(final Supplier<List<IFileEditorMapping>> mapCalculator) {
 		Display.getDefault().asyncExec(new Runnable() {
 			public void run() {
+				List<IFileEditorMapping> newMap = mapCalculator.get();
 				getEditorRegistry().setFileEditorMappings(newMap.toArray(new FileEditorMapping[newMap.size()]));
 				// TODO Do we really want to save the associations persistently?
 				getEditorRegistry().saveAssociations();
