@@ -667,8 +667,14 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
             fServiceControllerManager= new ServiceControllerManager(this, fLanguageServiceManager);
             fServiceControllerManager.initialize();
             if (fLanguageServiceManager.getParseController() != null) {
-                initializeParseController();
-                findLanguageSpecificPreferences();
+                try {
+                    initializeParseController();
+                    findLanguageSpecificPreferences();
+                }
+                catch (Throwable e) {
+                    ErrorHandler.reportError("Language support could not be initialized for this input: " + getEditorInput().getName(), true);
+                    return;
+                }
             }
         }
         // RMF 07 June 2010 - Not sure why the "run the spell checker" pref would get set, but
@@ -712,16 +718,9 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
         try {
             IProject project= (file != null && file.exists()) ? file.getProject() : null;
             ISourceProject srcProject= (project != null) ? ModelFactory.open(project) : null;
-
             fLanguageServiceManager.getParseController().initialize(filePath, srcProject, fAnnotationCreator);
-            // TODO Need to do the following to give the strategy access to project-specific preference settings
-//          if (fLanguageServiceManager.getAutoEditStrategies().size() > 0) {
-//              Set<io.usethesource.impulse.services.IAutoEditStrategy> strategies= fLanguageServiceManager.getAutoEditStrategies();
-//              for(io.usethesource.impulse.services.IAutoEditStrategy strategy: strategies) {
-//                  strategy.setProject(project);
-//              }
-//          }
-        } catch (ModelException e) {
+        } 
+        catch (Throwable e) {
             ErrorHandler.reportError("Error initializing parser for input " + editorInput.getName() + ":", e);
         }
     }
