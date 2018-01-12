@@ -708,11 +708,11 @@ public class ServiceFactory {
 
     private ILanguageService loadService(Language lang, String name) {
         if (lang == null) {
-            RuntimePlugin.getInstance().writeErrorMsg("Null language for service = " + name);
+            RuntimePlugin.getInstance().logException("Null language for service = " + name, new NullPointerException());
             return null;
         }
         if (name == null) {
-            RuntimePlugin.getInstance().writeErrorMsg("Null service for language = " + lang);
+            RuntimePlugin.getInstance().logException("Null service for language = " + lang, new NullPointerException());
             return null;
         }
         return createExtension(lang, name);
