@@ -29,6 +29,7 @@ import org.eclipse.ui.PartInitException;
 import io.usethesource.impulse.core.IMPMessages;
 import io.usethesource.impulse.editor.EditorUtility;
 import io.usethesource.impulse.editor.UniversalEditor;
+import io.usethesource.impulse.language.Language;
 import io.usethesource.impulse.language.ServiceFactory;
 import io.usethesource.impulse.model.ICompilationUnit;
 import io.usethesource.impulse.model.ISourceEntity;
@@ -92,7 +93,11 @@ public class OpenAction extends SelectionDispatchAction {
 	    ISourcePositionLocator nodeLocator = pc.getSourcePositionLocator();
 	
 		if (fResolver == null) {
-	        fResolver = ServiceFactory.getInstance().getReferenceResolver(pc.getLanguage());
+	        Language language = pc.getLanguage();
+	        
+	        if (language != null) {
+	            fResolver = ServiceFactory.getInstance().getReferenceResolver(language);
+	        }
 	    }
 	
 		if (fResolver == null) {
