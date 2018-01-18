@@ -77,7 +77,7 @@ public class AnnotationCreator implements IMessageHandler {
 
     public void handleSimpleMessage(String msg, int startOffset, int endOffset,
             int startCol, int endCol, int startLine, int endLine) {
-        Position pos= new Position(startOffset, endOffset - startOffset + 1);
+        Position pos= new Position(startOffset, endOffset - startOffset );
 
         fMessages.add(new PositionedMessage(msg, pos));
     }
@@ -85,7 +85,7 @@ public class AnnotationCreator implements IMessageHandler {
     public void handleSimpleMessage(String message, int startOffset, int endOffset,
             int startCol, int endCol, int startLine, int endLine,
             Map<String, Object> attributes) {
-        Position pos= new Position(startOffset, endOffset - startOffset + 1);
+        Position pos= new Position(startOffset, endOffset - startOffset );
 
         fMessages.add(new PositionedMessage(message, pos, attributes));
     }
