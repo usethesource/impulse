@@ -11,6 +11,7 @@
 
 package io.usethesource.impulse.editor.internal;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -60,7 +61,6 @@ public class AnnotationCreator implements IMessageHandler {
 
     private final ITextEditor fEditor;
     private final List<PositionedMessage> fMessages= new LinkedList<PositionedMessage>();
-    private final List<Annotation> fAnnotations= new LinkedList<Annotation>();
 
     public AnnotationCreator(ITextEditor textEditor) {
         fEditor= textEditor;
@@ -95,32 +95,20 @@ public class AnnotationCreator implements IMessageHandler {
 
         if (docProvider != null) {
             IAnnotationModel model= docProvider.getAnnotationModel(fEditor.getEditorInput());
-    
+            Annotation[] oldAnnotations = calculateOldAnnotations(model);
             if (model instanceof IAnnotationModelExtension) {
                 IAnnotationModelExtension modelExt= (IAnnotationModelExtension) model;
-                Annotation[] oldAnnotations= fAnnotations.toArray(new Annotation[fAnnotations.size()]);
                 Map<Annotation, Position> newAnnotations= new HashMap<Annotation, Position>(fMessages.size());
-
                 for(PositionedMessage pm: fMessages) {
-                    Annotation anno= createAnnotation(pm);
-
-                    newAnnotations.put(anno, pm.pos);
-                    fAnnotations.add(anno);
+                    newAnnotations.put(createAnnotation(pm), pm.pos);
                 }
                 modelExt.replaceAnnotations(oldAnnotations, newAnnotations);
             } else if (model != null) { // model could be null if, e.g., we're directly browsing a file version in a src repo
-                for(Iterator<?> i= model.getAnnotationIterator(); i.hasNext(); ) {
-                    Annotation a= (Annotation) i.next();
-    
-                    if (UniversalEditor.isParseAnnotation(a)) {
-                        model.removeAnnotation(a);
-                    }
+            	for(Annotation a : oldAnnotations) {
+            		model.removeAnnotation(a);
                 }
                 for(PositionedMessage pm: fMessages) {
-                    Annotation annotation= createAnnotation(pm);
-    
-                    model.addAnnotation(annotation, pm.pos);
-                    fAnnotations.add(annotation);
+                    model.addAnnotation(createAnnotation(pm), pm.pos);
                 }
             }
             // System.out.println("Annotation model updated.");
@@ -163,22 +151,29 @@ public class AnnotationCreator implements IMessageHandler {
 
         if (model == null)
             return;
+        
+        Annotation[] oldAnnotations = calculateOldAnnotations(model);
+        if (oldAnnotations.length == 0) {
+        	return;
+        }
 
         if (model instanceof IAnnotationModelExtension) {
-            IAnnotationModelExtension modelExt= (IAnnotationModelExtension) model;
-            Annotation[] oldAnnotations= fAnnotations.toArray(new Annotation[fAnnotations.size()]);
-
-            modelExt.replaceAnnotations(oldAnnotations, Collections.EMPTY_MAP);
+            ((IAnnotationModelExtension)model).replaceAnnotations(oldAnnotations, Collections.emptyMap());
         } else {
-            for(Iterator<?> i= model.getAnnotationIterator(); i.hasNext(); ) {
-                Annotation a= (Annotation) i.next();
-
-                if (UniversalEditor.isParseAnnotation(a)) {
-                    model.removeAnnotation(a);
-                }
-            }
+        	for (Annotation a: oldAnnotations) {
+        		model.removeAnnotation(a);
+        	}
         }
-//      System.out.println("Annotations removed.");
-        fAnnotations.clear();
     }
+
+	private Annotation[] calculateOldAnnotations(IAnnotationModel model) {
+		List<Annotation> oldAnnotations = new ArrayList<>();
+        for(Iterator<Annotation> i= model.getAnnotationIterator(); i.hasNext(); ) {
+        	Annotation a = i.next();
+        	if (UniversalEditor.isParseAnnotation(a)) {
+        		oldAnnotations.add(a);
+        	}
+        }
+		return oldAnnotations.toArray(new Annotation[oldAnnotations.size()]);
+	}
 }
