@@ -22,7 +22,6 @@ node {
 		slackSend (color: '#5cb85c', message: "BUILD BACK TO NORMAL: <${env.BUILD_URL}|${env.JOB_NAME} [${env.BUILD_NUMBER}]>")
     }
 
-    # schedule upstream job
     build job: '../rascal-eclipse/master', wait: false
   } catch(e) {
 	  slackSend (color: '#d9534f', message: "FAILED: <${env.BUILD_URL}|${env.JOB_NAME} [${env.BUILD_NUMBER}]>")
