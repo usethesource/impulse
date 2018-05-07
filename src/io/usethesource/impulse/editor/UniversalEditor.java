@@ -738,7 +738,7 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
     }
 
     private void watchDocument(final long reparse_schedule_delay) {
-        if (fLanguageServiceManager.getParseController() == null) {
+        if (getParseController() == null) {
             return;
         }
 
@@ -1584,10 +1584,16 @@ public class UniversalEditor extends TextEditor implements IASTFindReplaceTarget
     }
 
     public IParseController getParseController() {
+    	if (fLanguageServiceManager == null) {
+    		return null;
+    	}
         return fLanguageServiceManager.getParseController();
     }
     
     public IOccurrenceMarker getOccurrenceMarker() {
+    	if (fLanguageServiceManager == null) {
+    		return null;
+    	}
         return fLanguageServiceManager.getOccurrenceMarker();
     }
 
