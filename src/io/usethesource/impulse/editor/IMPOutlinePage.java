@@ -11,6 +11,9 @@
 
 package io.usethesource.impulse.editor;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
@@ -45,6 +48,7 @@ public class IMPOutlinePage extends ContentOutlinePage implements IModelListener
     private final IParseController fParseController;
     private final IRegionSelectionService regionSelector;
     private final IEntityNameLocator fNameLocator;
+	private static final ExecutorService treeBuilder = Executors.newCachedThreadPool();
 
     /**
      * Constructor flavor introduced for backward-compatibility with clients that extend this
@@ -91,16 +95,28 @@ public class IMPOutlinePage extends ContentOutlinePage implements IModelListener
                 return node.getParent();
             }
         };
+        
     }
 
     public void update(final IParseController parseController, IProgressMonitor monitor) {
         if (getTreeViewer() != null && !getTreeViewer().getTree().isDisposed()) {
-            getTreeViewer().getTree().getDisplay().asyncExec(new Runnable() {
-                public void run() {
-                	if (getTreeViewer() != null && !getTreeViewer().getTree().isDisposed())
-                		getTreeViewer().setInput(fModelBuilder.buildTree(fParseController.getCurrentAst()));
-                }
-            });
+        	Object currentAst = fParseController.getCurrentAst();
+        	CompletableFuture.supplyAsync(() -> {
+        		synchronized (fModelBuilder) {
+        			return fModelBuilder.buildTree(currentAst);
+				}
+        	}, treeBuilder)
+        	.thenAccept(t -> {
+        		if (currentAst == fParseController.getCurrentAst()) {
+        			// still relevant, so we schedule an update on the gui thread
+                    getTreeViewer().getTree().getDisplay().asyncExec(new Runnable() {
+                        public void run() {
+                            if (getTreeViewer() != null && !getTreeViewer().getTree().isDisposed())
+                                getTreeViewer().setInput(t);
+                        }
+                    });
+        		}
+        	});
         }
     }
 
