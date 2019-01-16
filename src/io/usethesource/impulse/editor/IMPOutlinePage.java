@@ -99,9 +99,10 @@ public class IMPOutlinePage extends ContentOutlinePage implements IModelListener
     }
 
     public void update(final IParseController parseController, IProgressMonitor monitor) {
-        if (getTreeViewer() != null && !getTreeViewer().getTree().isDisposed()) {
+    	TreeViewer currentTreeViewer = getTreeViewer();
+        if (currentTreeViewer != null && !currentTreeViewer.getTree().isDisposed()) {
         	Object currentAst = fParseController.getCurrentAst();
-        	TreeViewer currentTreeViewer = getTreeViewer();
+
         	CompletableFuture.supplyAsync(() -> {
         		synchronized (fModelBuilder) {
         			return fModelBuilder.buildTree(currentAst);
