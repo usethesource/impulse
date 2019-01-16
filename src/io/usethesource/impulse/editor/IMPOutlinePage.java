@@ -101,6 +101,7 @@ public class IMPOutlinePage extends ContentOutlinePage implements IModelListener
     public void update(final IParseController parseController, IProgressMonitor monitor) {
         if (getTreeViewer() != null && !getTreeViewer().getTree().isDisposed()) {
         	Object currentAst = fParseController.getCurrentAst();
+        	TreeViewer currentTreeViewer = getTreeViewer();
         	CompletableFuture.supplyAsync(() -> {
         		synchronized (fModelBuilder) {
         			return fModelBuilder.buildTree(currentAst);
@@ -109,10 +110,10 @@ public class IMPOutlinePage extends ContentOutlinePage implements IModelListener
         	.thenAccept(t -> {
         		if (currentAst == fParseController.getCurrentAst()) {
         			// still relevant, so we schedule an update on the gui thread
-                    getTreeViewer().getTree().getDisplay().asyncExec(new Runnable() {
+                    currentTreeViewer.getTree().getDisplay().asyncExec(new Runnable() {
                         public void run() {
-                            if (getTreeViewer() != null && !getTreeViewer().getTree().isDisposed())
-                                getTreeViewer().setInput(t);
+                            if (currentTreeViewer != null && !currentTreeViewer.getTree().isDisposed())
+                                currentTreeViewer.setInput(t);
                         }
                     });
         		}
