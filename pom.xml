@@ -105,6 +105,25 @@
      <completionGoals>org.eclipse.tycho:tycho-versions-plugin:${tycho-version}:update-eclipse-metadata org.apache.maven.plugins:maven-scm-plugin:1.9.5:add org.apache.maven.plugins:maven-scm-plugin:1.9.5:checkin</completionGoals>
    </configuration>
  </plugin>
+<plugin>
+   <groupId>org.apache.maven.plugins</groupId>
+   <artifactId>maven-scm-plugin</artifactId>
+   <executions>
+     <execution>
+       <id>default-cli</id>
+       <goals>
+         <goal>add</goal>
+         <goal>checkin</goal>
+       </goals>
+       <configuration>
+         <includes>**/META-INF/MANIFEST.MF,**/feature.xml,**/*.product,**/category.xml</includes>
+         <excludes>**/target/**</excludes>
+         <excludes>**/bin/**</excludes>
+       <message>Changing the version to reflect the pom versions for the release</message>
+       </configuration>
+     </execution>
+   </executions>
+ </plugin>
 		</plugins>
 	</build>
 </project>
