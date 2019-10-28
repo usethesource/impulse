@@ -3,13 +3,13 @@
 
 	<groupId>org.rascalmpl</groupId>
 	<artifactId>impulse</artifactId>
-	<version>0.3.2-SNAPSHOT</version>
+	<version>0.3.2</version>
 	
 	<packaging>eclipse-plugin</packaging>
 
 	<scm>
 		<developerConnection>scm:git:ssh://git@github.com/usethesource/impulse.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>v0.3.2</tag>
   </scm>
 
 	<properties>
