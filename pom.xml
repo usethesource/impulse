@@ -105,6 +105,7 @@
        <goals>
          <goal>add</goal>
          <goal>checkin</goal>
+         <goal>update-eclipse-metadata</goal>
        </goals>
        <configuration>
          <excludes>**/target/**</excludes>
