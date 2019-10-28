@@ -8,7 +8,8 @@
 	<packaging>eclipse-plugin</packaging>
 
 	<scm>
-		<developerConnection>scm:git:https://github.com/usethesource/impulse.git</developerConnection>
+		<developerConnection>scm:git:ssh://git@github.com/usethesource/impulse.git</developerConnection>
+    <tag>v0.3.0</tag>
   </scm>
 
 	<properties>
