@@ -3,13 +3,13 @@
 
 	<groupId>org.rascalmpl</groupId>
 	<artifactId>impulse</artifactId>
-	<version>0.3.1</version>
+	<version>0.3.1-SNAPSHOT</version>
 	
 	<packaging>eclipse-plugin</packaging>
 
 	<scm>
 		<developerConnection>scm:git:ssh://git@github.com/usethesource/impulse.git</developerConnection>
-    <tag>v0.3.1</tag>
+    <tag>HEAD</tag>
   </scm>
 
 	<properties>
@@ -117,9 +117,9 @@
          <goal>checkin</goal>
        </goals>
        <configuration>
+         <includes>**/META-INF/MANIFEST.MF,**/feature.xml,**/*.product,**/category.xml</includes>
          <excludes>**/target/**</excludes>
          <excludes>**/bin/**</excludes>
-         <includes>**/META-INF/MANIFEST.MF,**/feature.xml,**/*.product,**/category.xml</includes>
        <message>Changing the version to reflect the pom versions for the release</message>
        </configuration>
      </execution>
