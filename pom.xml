@@ -108,8 +108,7 @@
          <goal>update-eclipse-metadata</goal>
        </goals>
        <configuration>
-         <excludes>**/target/**</excludes>
-         <excludes>**/bin/**</excludes>
+         <excludes>**/target/**,**/bin/**</excludes>
          <includes>**/META-INF/MANIFEST.MF,**/feature.xml,**/*.product,**/category.xml</includes>
        <message>Changing the version to reflect the pom versions for the release</message>
        </configuration>
