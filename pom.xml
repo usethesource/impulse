@@ -9,7 +9,6 @@
 
 	<scm>
 		<developerConnection>scm:git:ssh://git@github.com/usethesource/impulse.git</developerConnection>
-    <tag>v0.3.0</tag>
   </scm>
 
 	<properties>
@@ -83,19 +82,6 @@
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-versions-plugin</artifactId>
 				<version>${tycho-version}</version>
-                                <executions>
-        <execution>
-            <id>versions</id>
-            <phase>validate</phase>
-            <goals>
-                <goal>set-version</goal>
-            </goals>
-        </execution>
-    </executions>
-                                <configuration>
-                                  <newVersion>${project.version}</newVersion>
-                                  <strictVersions>false</strictVersions>
-                                </configuration>
 			</plugin>
 
 			<plugin>
@@ -114,8 +100,8 @@
    <artifactId>maven-release-plugin</artifactId>
    <version>2.5.3</version>
    <configuration>
-     <preparationGoals>org.eclipse.tycho:tycho-versions-plugin:${tycho-version}:set-version org.apache.maven.plugins:maven-scm-plugin:1.9.5:add org.apache.maven.plugins:maven-scm-plugin:1.9.5:checkin</preparationGoals>
-     <completionGoals>org.eclipse.tycho:tycho-versions-plugin:${tycho-version}:set-version org.apache.maven.plugins:maven-scm-plugin:1.9.5:add org.apache.maven.plugins:maven-scm-plugin:1.9.5:checkin</completionGoals>
+     <preparationGoals>org.eclipse.tycho:tycho-versions-plugin:${tycho-version}:update-eclipse-metadata org.apache.maven.plugins:maven-scm-plugin:1.9.5:add org.apache.maven.plugins:maven-scm-plugin:1.9.5:checkin</preparationGoals>
+     <completionGoals>org.eclipse.tycho:tycho-versions-plugin:${tycho-version}:update-eclipse-metadata org.apache.maven.plugins:maven-scm-plugin:1.9.5:add org.apache.maven.plugins:maven-scm-plugin:1.9.5:checkin</completionGoals>
    </configuration>
  </plugin>
 <plugin>
