@@ -13,7 +13,7 @@ package io.usethesource.impulse.services;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.osgi.framework.Bundle;
 
-import io.usethesource.impulse.language.LanguageRegistry.BundleImageDescriptor;
+import io.usethesource.impulse.language.LanguageRegistry;
 
 public class DecorationDescriptor {
     public static enum Quadrant {
@@ -54,7 +54,7 @@ public class DecorationDescriptor {
 
     public ImageDescriptor getImageDescriptor() {
         if (fImageDesc == null) {
-            fImageDesc= new BundleImageDescriptor(path, bundle, "");
+            fImageDesc= LanguageRegistry.bundleImage(path, bundle, "");
         }
         return fImageDesc;
     }

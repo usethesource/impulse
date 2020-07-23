@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -364,61 +365,15 @@ public class LanguageRegistry {
 			}
 		}
 	}
-
-    public static class BundleImageDescriptor extends ImageDescriptor {
-        private final Bundle bundle;
-        private final String iconPath;
-        private final String langName;
-
-        public BundleImageDescriptor(String iconPath, Bundle bundle, String langName) {
-            this.langName= langName;
-            this.bundle= bundle;
-            this.iconPath= iconPath;
-        }
-
-        @Override
-        public ImageData getImageData() {
-            InputStream in = getStream();
-            ImageData result = null;
-            if (in != null) {
-                try {
-                    result = new ImageData(in);
-                } catch (SWTException e) {
-                    if (e.code != SWT.ERROR_INVALID_IMAGE) {
-                        throw e;
-                    // fall through otherwise
-                    }
-                } finally {
-                    try {
-                        in.close();
-                    } catch (IOException e) {
-                        //System.err.println(getClass().getName()+".getImageData(): "+
-                        //  "Exception while closing InputStream : "+e);
-                    }
-                }
-            }
-            return result;
-        }
-
-        private InputStream getStream() {
-            InputStream is = null;
-
-            try {
-                if (this.iconPath != null) {
-                    is = bundle.getResource(iconPath).openStream();
-                }
-            } catch (IOException e) {
-                RuntimePlugin.getInstance().logException("Unable to find icon for language " + langName, e);
-                return null;
-            }
-
-            if (is == null) {
-                return null;
-            } else {
-                return new BufferedInputStream(is);
-            }
-        }
-    }
+	
+	public static ImageDescriptor bundleImage(String iconPath, Bundle bundle, String langName) {
+		URL resolved = bundle.getResource(iconPath);
+		if (resolved == null) {
+			RuntimePlugin.getInstance().logException("Unable to find icon for language " + langName, new NullPointerException());
+			return ImageDescriptor.getMissingImageDescriptor();
+		}
+		return ImageDescriptor.createFromURL(resolved);
+	}
 
     private static class IMPFileEditorMapping extends FileEditorMapping {
         private ImageDescriptor fImageDescriptor;
@@ -427,7 +382,7 @@ public class LanguageRegistry {
         public IMPFileEditorMapping(final String langName, String extension, final String iconPath, String bundleID) {
             super(extension);
             final Bundle bundle= Platform.getBundle(bundleID);
-            fImageDescriptor= new BundleImageDescriptor(iconPath, bundle, langName);
+            fImageDescriptor= bundleImage(iconPath, bundle, langName);
         }
 
         @SuppressWarnings("unused")
