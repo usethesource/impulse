@@ -14,6 +14,8 @@ package io.usethesource.impulse.editor;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
@@ -139,15 +141,21 @@ public class IMPOutlinePage extends ContentOutlinePage implements IModelListener
                 node= name;
             }
         }
+        
         int startOffset= locator.getStartOffset(node);
         int endOffset= locator.getEndOffset(node);
         int length= endOffset - startOffset + 1;
-
+        
+        IPath path = locator.getPath(node);
+        if (path != null) {
+            if (!fParseController.getProject().resolvePath(fParseController.getPath()).equals(path)) {
+                // we have a different file to move to!
+                new TargetLink("external outline", startOffset, length, path, startOffset, length, regionSelector).open();
+                return;
+            }
+        }
+        
         regionSelector.selectAndReveal(startOffset, length);
-//        IEditorPart activeEditor= PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-//        AbstractTextEditor textEditor= (AbstractTextEditor) activeEditor;
-//
-//        textEditor.selectAndReveal(startOffset, length);
     }
 
     public void createControl(Composite parent) {
