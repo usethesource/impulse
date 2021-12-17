@@ -19,7 +19,7 @@ By instantiating the UniversalEditor, using extension points, with information a
 create a basic IDE. You provide this information mainly by implementing a number of simple interfaces.
 
 IMPULSE is described (as IMP) in a 2009 OOPSLA [paper](http://dl.acm.org/citation.cfm?id=1640104)
-
+ 
 # Extension points 
 
 The first and only absolutely necessary extension point to bind is "languageDescription". It makes your language known to
