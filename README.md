@@ -1,5 +1,5 @@
 > **Warning**
-> The entire Impulse is _deprecated_ starting Februari 1st, 2023 as the Rascal-eclipse project is deprecated
+> The entire Impulse is _deprecated_ starting Februari 1st, 2023. As the Rascal-eclipse project is deprecated,
 > which is the only known use of Impulse, we are also deprecating this otherwise valuable project. It is a matter
 > of software maintenance capacity of the community. DSL projects which depend on Impulse and Rascal-eclipse will
 > be port{ed,able} to VScode support based on the Rascal-language-servers project. 
