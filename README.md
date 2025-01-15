@@ -1,4 +1,7 @@
 > **Warning**
+> As of January 2025 this project has been archived. It's ok to use the code as inspiration or to cannibalize it in any way that is in line with its open source license. The usethesource community has moved on to the [Rascal Language Servers](http://github.com/usethesource/rascal-language-servers) project and the Language Server Protocol, for the kind of functionality that was provided by Impulse before. 
+
+> **Warning**
 > The entire Impulse is _deprecated_ starting Februari 1st, 2023. As the Rascal-eclipse project is deprecated,
 > which is the only known use of Impulse, we are also deprecating this otherwise valuable project. It is a matter
 > of software maintenance capacity of the community. DSL projects which depend on Impulse and Rascal-eclipse will
